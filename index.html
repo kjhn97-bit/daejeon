@@ -1,0 +1,2577 @@
+<!doctype html>
+<html lang="ko" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>대전 웨이팅프리 (WaitFree Daejeon) - 실시간 핫플 & 웨이팅 제로 관광 플랫폼</title>
+    <meta name="description" content="성심당 웨이팅 제로화, 대전 로컬 핫플 실시간 대기 현황 & 숏폼 큐레이션, 온통대전 혜택 스마트 관광 플랫폼" />
+    <meta property="og:title" content="대전 웨이팅프리 (WaitFree Daejeon)" />
+    <meta property="og:description" content="성심당 웨이팅 제로화, 대전 로컬 핫플 실시간 대기 현황 & 숏폼 큐레이션, 온통대전 혜택 스마트 관광 플랫폼" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Pretendard Font -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: '#FF5722',
+              'brand-hover': '#E64A19',
+              ontong: '#0066CC',
+              'ontong-hover': '#0052A3',
+              zero: '#10B981',
+              'zero-hover': '#059669',
+              darknavy: '#0B0F19',
+              slatecard: '#111827',
+            },
+            fontFamily: {
+              sans: ['"Pretendard Variable"', 'Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      body {
+        font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      }
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+  </head>
+  <body class="bg-[#F9FAFB] text-slate-900 antialiased selection:bg-[#FF5722] selection:text-white min-h-screen flex flex-col">
+
+    <!-- ================= 1. FLOATING NAVBAR ================= -->
+    <header class="sticky top-4 z-50 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto bg-white/95 backdrop-blur-md shadow-sm border border-slate-200/80 rounded-full py-3 px-6 flex items-center justify-between gap-4">
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2 group flex-shrink-0">
+          <div class="flex items-center tracking-tighter font-extrabold text-2xl text-slate-900 group-hover:opacity-90 transition-opacity">
+            <span class="text-[#FF5722]">0</span>
+            <span>WAIT</span>
+            <span class="text-xs ml-1 px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border border-slate-200">
+              대전
+            </span>
+          </div>
+        </a>
+
+        <!-- Center Nav Links -->
+        <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+          <a href="#hero" class="transition-colors hover:text-[#FF5722] text-[#FF5722] font-bold">홈</a>
+          <a href="#categories" class="transition-colors hover:text-[#FF5722]">핫플 카테고리</a>
+          <a href="#trend-spots" class="transition-colors hover:text-[#FF5722] flex items-center gap-1.5">
+            실시간 웨이팅
+            <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+          </a>
+          <a href="#calculator" class="transition-colors hover:text-[#FF5722]">대안 매칭 & 절약</a>
+          <a href="#shorts" class="transition-colors hover:text-[#FF5722] flex items-center gap-1.5 text-slate-900">
+            <span class="px-1.5 py-0.2 text-[11px] bg-[#FF5722]/10 text-[#FF5722] rounded font-bold">15s</span>
+            로컬 숏폼
+          </a>
+          <a href="#features" class="transition-colors hover:text-[#FF5722]">온통대전 혜택</a>
+        </nav>
+
+        <!-- Right Search & Pass Trigger -->
+        <div class="flex items-center gap-2.5">
+          <div class="relative hidden sm:block">
+            <input
+              id="navSearchInput"
+              type="text"
+              placeholder="성심당, 소제동, 오씨칼국수..."
+              class="w-48 lg:w-64 pl-9 pr-4 py-1.5 text-xs rounded-full border border-slate-200 bg-slate-50/80 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF5722]/30 focus:border-[#FF5722] transition-all text-slate-800 placeholder:text-slate-400"
+              onkeydown="if(event.key === 'Enter') handleSearchSubmit()"
+            />
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          </div>
+
+          <button
+            onclick="openPassModal()"
+            class="hidden lg:flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-gradient-to-r from-[#FF5722] to-[#FF7043] rounded-full shadow-sm hover:shadow transition-all hover:scale-[1.02] active:scale-95"
+          >
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>노웨이트 패스</span>
+          </button>
+
+          <button
+            onclick="openPassModal()"
+            aria-label="User profile and ticket"
+            class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-800 transition-colors shadow-sm relative"
+          >
+            <i data-lucide="user" class="w-4 h-4"></i>
+            <span class="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 bg-[#10B981] border-2 border-white rounded-full"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ================= 2. HERO SECTION ================= -->
+    <main class="flex-grow">
+      <section id="hero" class="relative pt-6 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+          <!-- Hero Architectural Showcase Container -->
+          <div class="relative rounded-3xl overflow-hidden bg-slate-900 shadow-2xl mb-10 border border-slate-800">
+            <div class="relative h-[480px] sm:h-[540px] md:h-[580px] w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=85"
+                alt="대전 핫플 & 모던 카페 투어"
+                class="w-full h-full object-cover object-center brightness-75 contrast-110"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/20"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent"></div>
+
+              <!-- Live Indicator Radar Badge -->
+              <div class="absolute top-6 left-6 sm:top-8 sm:left-8 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white text-xs font-medium">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10B981] opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-[#10B981]"></span>
+                </span>
+                <span>대전 전역 128개 핫플 15분 단위 실시간 대기 센싱 중</span>
+              </div>
+
+              <!-- Live Wait Comparison Overlay Box -->
+              <div class="hidden lg:block absolute top-8 right-8 w-80 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 text-white shadow-2xl">
+                <div class="flex items-center justify-between text-xs font-semibold mb-2.5 pb-2 border-b border-white/10">
+                  <span class="text-slate-300">실시간 혼잡도 즉시 비교</span>
+                  <span class="text-amber-400 font-bold flex items-center gap-1">
+                    <i data-lucide="clock" class="w-3 h-3"></i> 지금 LIVE
+                  </span>
+                </div>
+                <div class="space-y-2.5 text-xs">
+                  <div class="flex items-center justify-between bg-black/30 p-2.5 rounded-xl border border-white/5">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                      <span class="font-bold text-slate-200">성심당 본점</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-extrabold">
+                      대기 115분 (84팀)
+                    </span>
+                  </div>
+                  <div class="flex items-center justify-between bg-emerald-500/20 p-2.5 rounded-xl border border-emerald-500/40">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                      <div>
+                        <div class="font-bold text-emerald-200">르뺑 베이커리</div>
+                        <div class="text-[10px] text-emerald-300/80">도보 4분 · 온통대전 10%</div>
+                      </div>
+                    </div>
+                    <button
+                      onclick="openSpotModalById('sungsimdang-main')"
+                      class="px-2.5 py-1 rounded-lg bg-[#10B981] hover:bg-emerald-400 text-slate-950 font-extrabold text-[11px] transition-colors"
+                    >
+                      대기 0분 전환 ↗
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hero Title & Copy -->
+              <div class="absolute bottom-10 left-6 sm:bottom-14 sm:left-10 lg:left-14 max-w-3xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF5722]/20 border border-[#FF5722]/40 text-[#FF7043] text-xs font-bold uppercase tracking-wider mb-4">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                  대기시간 제로화 × 온통대전 지역상생
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
+                  Daejeon Wait-Zero, <br />
+                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
+                    로컬의 재발견
+                  </span>
+                </h1>
+                <p class="mt-4 text-sm sm:text-base text-slate-300 max-w-xl leading-relaxed">
+                  성심당 120분 줄서기에 소중한 여행을 낭비하지 마세요. 실시간 대기 현황과 
+                  도보 3분 거리의 숨은 로컬 대안 스팟, 온통대전 10% 캐시백 혜택까지 원스톱으로 연결합니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Floating Filter Bar - Benchmarking sample's Distance/Hourly/Flat Rate & Input Search Bar -->
+          <div class="relative -mt-16 sm:-mt-20 z-20 max-w-5xl mx-auto">
+            <!-- Segment Tabs -->
+            <div class="flex justify-center sm:justify-start">
+              <div class="inline-flex p-1 bg-slate-900/90 backdrop-blur-md rounded-t-2xl border border-slate-700/60 shadow-xl overflow-x-auto max-w-full">
+                <button
+                  id="tab-zeroWait"
+                  onclick="selectTab('zeroWait')"
+                  class="px-4 py-2 text-xs font-bold rounded-xl transition-all whitespace-nowrap flex items-center gap-1.5 bg-[#10B981] text-white shadow-md"
+                >
+                  <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+                  대기시간 0분 스팟
+                </button>
+                <button
+                  id="tab-bakery"
+                  onclick="selectTab('bakery')"
+                  class="px-4 py-2 text-xs font-bold rounded-xl transition-all whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800"
+                >
+                  <span>🥐</span>
+                  성심당 & 명품 베이커리
+                </button>
+                <button
+                  id="tab-sojedong"
+                  onclick="selectTab('sojedong')"
+                  class="px-4 py-2 text-xs font-bold rounded-xl transition-all whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800"
+                >
+                  <span>☕</span>
+                  소제동 감성 카페
+                </button>
+                <button
+                  id="tab-ontong"
+                  onclick="selectTab('ontong')"
+                  class="px-4 py-2 text-xs font-bold rounded-xl transition-all whitespace-nowrap flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800"
+                >
+                  <span>💳</span>
+                  온통대전 10% 캐시백
+                </button>
+              </div>
+            </div>
+
+            <!-- White Search Capsule -->
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-xl border border-slate-200/80">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-2">
+                <!-- Column 1: District -->
+                <div class="p-2.5 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+                  <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-[#FF5722]"></i>
+                    탐색 권역 (District)
+                  </label>
+                  <select
+                    id="filterDistrict"
+                    onchange="applyFilters()"
+                    class="w-full text-xs font-bold text-slate-800 bg-transparent focus:outline-none cursor-pointer"
+                  >
+                    <option value="all">대전 전역 전체</option>
+                    <option value="중구 (은행·대흥동)">중구 (성심당·대흥동 거리)</option>
+                    <option value="동구 (소제동)">동구 (소제동 철도관사촌)</option>
+                    <option value="서구 (둔산·갈마동)">서구 (둔산 갤러리아·갈리단길)</option>
+                    <option value="유성구 (온천·도룡동)">유성구 (유성온천·신세계)</option>
+                    <option value="대덕구 (신탄진·중리동)">대덕구 (신탄진·중리순대거리)</option>
+                  </select>
+                </div>
+
+                <!-- Column 2: Theme -->
+                <div class="p-2.5 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+                  <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <i data-lucide="sparkles" class="w-3 h-3 text-amber-500"></i>
+                    핫플 테마 (Theme)
+                  </label>
+                  <select
+                    id="filterCategory"
+                    onchange="applyFilters()"
+                    class="w-full text-xs font-bold text-slate-800 bg-transparent focus:outline-none cursor-pointer"
+                  >
+                    <option value="all">전체 테마</option>
+                    <option value="bakery">원조 빵집 & 명품 베이커리</option>
+                    <option value="restaurant">칼국수 & 두부두루치기 미식</option>
+                    <option value="cafe">소제동 감성 카페 & 티하우스</option>
+                    <option value="healing">온천 족욕 & 과학 스마트 힐링</option>
+                  </select>
+                </div>
+
+                <!-- Column 3: Wait Time -->
+                <div class="p-2.5 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+                  <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <i data-lucide="clock" class="w-3 h-3 text-[#10B981]"></i>
+                    허용 대기시간 (Wait Filter)
+                  </label>
+                  <select
+                    id="filterWaitTime"
+                    onchange="applyFilters()"
+                    class="w-full text-xs font-bold text-slate-800 bg-transparent focus:outline-none cursor-pointer"
+                  >
+                    <option value="180">대기 상관없음 (전체)</option>
+                    <option value="0" selected>즉시 입장만 (0분 대기)</option>
+                    <option value="15">15분 이내 (쾌적)</option>
+                    <option value="30">30분 이내 (보통)</option>
+                  </select>
+                </div>
+
+                <!-- Column 4: Benefit & Search Button -->
+                <div class="flex items-center gap-2">
+                  <div class="flex-1 p-2.5 rounded-xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1 flex items-center gap-1">
+                      <i data-lucide="shield-check" class="w-3 h-3 text-[#0066CC]"></i>
+                      온통대전 혜택
+                    </label>
+                    <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold text-slate-700">
+                      <input
+                        id="filterOntong"
+                        type="checkbox"
+                        onchange="applyFilters()"
+                        class="w-3.5 h-3.5 rounded text-[#0066CC] focus:ring-[#0066CC] accent-[#0066CC]"
+                      />
+                      <span>10% 캐시백만</span>
+                    </label>
+                  </div>
+
+                  <button
+                    type="button"
+                    onclick="handleSearchSubmit()"
+                    class="px-5 py-3.5 bg-gradient-to-r from-[#FF5722] to-[#FF7043] hover:from-[#E64A19] hover:to-[#FF5722] text-white font-extrabold text-xs sm:text-sm rounded-xl shadow-md shadow-[#FF5722]/30 hover:shadow-lg transition-all flex items-center justify-center gap-2 group flex-shrink-0"
+                  >
+                    <i data-lucide="search" class="w-4 h-4 transition-transform group-hover:scale-110"></i>
+                    <span>실시간 검색</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. CATEGORY SECTION ================= -->
+      <section id="categories" class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex items-baseline justify-between mb-8">
+            <div>
+              <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                Hotspot Category
+              </h2>
+              <p class="mt-1 text-sm text-slate-500 font-medium">
+                권역별 특색과 로컬 미식이 살아있는 대전의 대표 4대 테마
+              </p>
+            </div>
+            <span class="hidden sm:inline-block text-xs font-bold text-slate-400">
+              총 89개 실시간 가맹점 연동
+            </span>
+          </div>
+
+          <!-- 4 Vertical Cards Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- Card 1 -->
+            <div
+              onclick="selectCategoryAndScroll('bakery')"
+              class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-200/60 bg-slate-900"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+                alt="성심당 & 명품 베이커리"
+                class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-85 group-hover:opacity-95"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/70"></div>
+              <div class="absolute top-6 left-6 right-6">
+                <span class="inline-block text-[11px] font-bold text-[#FF7043] uppercase tracking-wider mb-1">
+                  실시간 대기 모니터링 중
+                </span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                  성심당 & 명품 베이커리
+                </h3>
+                <p class="text-xs text-slate-300 mt-1 font-mono tracking-tight opacity-80">
+                  Sungsimdang & Bakery
+                </p>
+              </div>
+              <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div class="max-w-[70%]">
+                  <span class="text-xs text-slate-300 block line-clamp-2 leading-relaxed">
+                    튀김소보로부터 기능장 명품 빵집까지 빵의 도시 대전 투어
+                  </span>
+                  <span class="text-[11px] font-semibold text-emerald-400 mt-2 block">
+                    32개 스팟 등록됨
+                  </span>
+                </div>
+                <div class="w-11 h-11 rounded-full bg-white text-slate-900 flex items-center justify-center shadow-lg group-hover:bg-[#FF5722] group-hover:text-white transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                  <i data-lucide="arrow-up-right" class="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+              onclick="selectCategoryAndScroll('cafe')"
+              class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-200/60 bg-slate-900"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80"
+                alt="소제동 철도관사촌 감성 카페"
+                class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-85 group-hover:opacity-95"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/70"></div>
+              <div class="absolute top-6 left-6 right-6">
+                <span class="inline-block text-[11px] font-bold text-[#FF7043] uppercase tracking-wider mb-1">
+                  대전역 도보 5분
+                </span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                  소제동 철도관사촌 카페
+                </h3>
+                <p class="text-xs text-slate-300 mt-1 font-mono tracking-tight opacity-80">
+                  Soje-dong Retro Alley
+                </p>
+              </div>
+              <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div class="max-w-[70%]">
+                  <span class="text-xs text-slate-300 block line-clamp-2 leading-relaxed">
+                    100년 역사의 철도관사 속 대나무 숲과 수경정원 티하우스
+                  </span>
+                  <span class="text-[11px] font-semibold text-emerald-400 mt-2 block">
+                    18개 스팟 등록됨
+                  </span>
+                </div>
+                <div class="w-11 h-11 rounded-full bg-white text-slate-900 flex items-center justify-center shadow-lg group-hover:bg-[#FF5722] group-hover:text-white transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                  <i data-lucide="arrow-up-right" class="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+              onclick="selectCategoryAndScroll('restaurant')"
+              class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-200/60 bg-slate-900"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80"
+                alt="대전 30년 백년미식 로드"
+                class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-85 group-hover:opacity-95"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/70"></div>
+              <div class="absolute top-6 left-6 right-6">
+                <span class="inline-block text-[11px] font-bold text-[#FF7043] uppercase tracking-wider mb-1">
+                  대기 0~10분 대안 매칭
+                </span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                  대전 30년 백년미식 로드
+                </h3>
+                <p class="text-xs text-slate-300 mt-1 font-mono tracking-tight opacity-80">
+                  Spicy Tofu & Kalguksu
+                </p>
+              </div>
+              <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div class="max-w-[70%]">
+                  <span class="text-xs text-slate-300 block line-clamp-2 leading-relaxed">
+                    중독적인 두부두루치기와 시원칼칼 물총조개 손칼국수
+                  </span>
+                  <span class="text-[11px] font-semibold text-emerald-400 mt-2 block">
+                    24개 스팟 등록됨
+                  </span>
+                </div>
+                <div class="w-11 h-11 rounded-full bg-white text-slate-900 flex items-center justify-center shadow-lg group-hover:bg-[#FF5722] group-hover:text-white transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                  <i data-lucide="arrow-up-right" class="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div
+              onclick="selectCategoryAndScroll('healing')"
+              class="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 border border-slate-200/60 bg-slate-900"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80"
+                alt="유성온천 & 엑스포 스마트 힐링"
+                class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105 opacity-85 group-hover:opacity-95"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-slate-950/70"></div>
+              <div class="absolute top-6 left-6 right-6">
+                <span class="inline-block text-[11px] font-bold text-[#FF7043] uppercase tracking-wider mb-1">
+                  웨이팅 제로 힐링
+                </span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-tight">
+                  유성온천 & 스마트 힐링
+                </h3>
+                <p class="text-xs text-slate-300 mt-1 font-mono tracking-tight opacity-80">
+                  Expo & Yuseong Healing
+                </p>
+              </div>
+              <div class="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                <div class="max-w-[70%]">
+                  <span class="text-xs text-slate-300 block line-clamp-2 leading-relaxed">
+                    41도 천연 노천 족욕체험장과 신세계 파노라마 전망 랜드마크
+                  </span>
+                  <span class="text-[11px] font-semibold text-emerald-400 mt-2 block">
+                    15개 스팟 등록됨
+                  </span>
+                </div>
+                <div class="w-11 h-11 rounded-full bg-white text-slate-900 flex items-center justify-center shadow-lg group-hover:bg-[#FF5722] group-hover:text-white transition-all duration-300 group-hover:scale-110 flex-shrink-0">
+                  <i data-lucide="arrow-up-right" class="w-5 h-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. TREND HOTSPOTS SECTION ================= -->
+      <section id="trend-spots" class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-50/60">
+        <div class="max-w-7xl mx-auto">
+          <!-- Header -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                  Trend Hotspots
+                </h2>
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span id="hotspotsCountBadge" class="text-xs px-2.5 py-0.5 rounded-full bg-slate-900 text-white font-bold ml-1.5 shadow-sm">
+                  총 26개 핫플 등록
+                </span>
+              </div>
+              <p class="mt-1 text-sm text-slate-500 font-medium">
+                실시간 대기 인원 측정 및 웨이팅 제로(0분) 스마트 대안 스팟 (전체 핫플 보기 지원)
+              </p>
+            </div>
+
+            <!-- View All Pill Button -->
+            <button
+              id="btnShowAllHeader"
+              onclick="showAllHotspotsNow()"
+              class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-white bg-[#0066CC] hover:bg-[#0052A3] rounded-full shadow-sm hover:shadow transition-all self-start sm:self-auto"
+            >
+              <span>전체 26개 핫플 한번에 보기</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+
+          <!-- Quick District Chips Bar -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar">
+            <button onclick="filterByDistrictChip('all')" id="chip-all" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-slate-900 text-white shadow-sm flex items-center gap-1">
+              전체 대전 <span class="opacity-70 text-[10px]">(26)</span>
+            </button>
+            <button onclick="filterByDistrictChip('중구 (은행·대흥동)')" id="chip-jung" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center gap-1">
+              중구 성심당·대흥 <span class="opacity-70 text-[10px]">(7)</span>
+            </button>
+            <button onclick="filterByDistrictChip('동구 (소제동)')" id="chip-dong" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center gap-1">
+              동구 소제·삼성 <span class="opacity-70 text-[10px]">(6)</span>
+            </button>
+            <button onclick="filterByDistrictChip('서구 (둔산·갈마동)')" id="chip-seo" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center gap-1">
+              서구 둔산·갈리단 <span class="opacity-70 text-[10px]">(5)</span>
+            </button>
+            <button onclick="filterByDistrictChip('유성구 (온천·도룡동)')" id="chip-yuseong" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center gap-1">
+              유성구 온천·봉명 <span class="opacity-70 text-[10px]">(6)</span>
+            </button>
+            <button onclick="filterByDistrictChip('대덕구 (신탄진·중리동)')" id="chip-daedeok" class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center gap-1">
+              대덕구 중리·송촌 <span class="opacity-70 text-[10px]">(2)</span>
+            </button>
+          </div>
+
+          <!-- Dynamic Hotspots Grid -->
+          <div id="hotspotsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Will be populated by renderHotspots() in JavaScript -->
+          </div>
+
+          <!-- Bottom Expand / Load More Button -->
+          <div class="mt-12 flex justify-center" id="loadMoreContainer">
+            <button
+              id="btnToggleAll"
+              onclick="toggleShowAllHotspots()"
+              class="px-8 py-3.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold rounded-full transition-all shadow-md hover:shadow-xl flex items-center gap-2 group"
+            >
+              <i data-lucide="layers" class="w-4 h-4 text-emerald-400"></i>
+              <span id="btnToggleAllText">대전 전체 핫플 더보기 (전체 26개 모두 표시)</span>
+              <i data-lucide="chevron-down" id="toggleAllChevron" class="w-4 h-4 transition-transform group-hover:translate-y-0.5"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. INTERACTIVE COMPARISON CALCULATOR ================= -->
+      <section id="calculator" class="py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-slate-200/80">
+        <div class="max-w-7xl mx-auto">
+          <div class="text-center max-w-2xl mx-auto mb-10">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#10B981]/10 text-[#10B981] font-bold text-xs uppercase tracking-wider mb-2">
+              <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+              시간 절약 & 로컬 매칭 시뮬레이터
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+              줄서기 120분 대신, 대전의 진짜 매력을 만나세요
+            </h2>
+            <p class="mt-2 text-sm text-slate-600">
+              웨이팅프리 AI가 즉시 입장 가능한 도보권 로컬 대안 스팟과 온통대전 혜택을 실시간으로 계산해 드립니다.
+            </p>
+          </div>
+
+          <!-- Spot Switcher Buttons -->
+          <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button
+              id="calc-sungsimdang"
+              onclick="selectCalcSpot('sungsimdang-main')"
+              class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-900 text-white shadow-md"
+            >
+              성심당 본점 (대기 115분)
+            </button>
+            <button
+              id="calc-oc"
+              onclick="selectCalcSpot('oc-kalguksu')"
+              class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200"
+            >
+              오씨칼국수 본점 (대기 60분)
+            </button>
+            <button
+              id="calc-gwangcheon"
+              onclick="selectCalcSpot('gwangcheon-restaurant')"
+              class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200"
+            >
+              원조 광천식당 (대기 45분)
+            </button>
+          </div>
+
+          <!-- Comparison Cards Showcase -->
+          <div class="bg-gradient-to-br from-slate-50 to-slate-100/70 rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
+              <!-- Left: Congested Original -->
+              <div class="md:col-span-5 bg-white rounded-2xl p-5 border border-rose-200 shadow-sm">
+                <div class="flex items-center justify-between text-xs mb-3">
+                  <span class="font-bold text-rose-600 bg-rose-50 px-2.5 py-0.5 rounded-full border border-rose-200">
+                    기존 선택 핫플
+                  </span>
+                  <span id="calcOriginalWait" class="text-rose-500 font-extrabold flex items-center gap-1">
+                    <i data-lucide="clock" class="w-3.5 h-3.5"></i> 대기 115분
+                  </span>
+                </div>
+                <h3 id="calcOriginalName" class="text-xl font-extrabold text-slate-900 mb-1">성심당 본점</h3>
+                <p id="calcOriginalLoc" class="text-xs text-slate-500 mb-3">대전 중구 대종로480번길 15</p>
+
+                <div class="aspect-[16/9] rounded-xl overflow-hidden mb-3 bg-slate-100">
+                  <img
+                    id="calcOriginalImg"
+                    src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80"
+                    alt="성심당 본점"
+                    class="w-full h-full object-cover grayscale-[25%]"
+                  />
+                </div>
+
+                <div class="text-xs text-slate-600 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                  <span class="font-semibold text-slate-700">현재 대기 인원:</span> <span id="calcOriginalCount">약 84팀 (예상 대기 115분)</span>
+                </div>
+              </div>
+
+              <!-- VS Badge -->
+              <div class="md:col-span-1 flex flex-col items-center justify-center py-2">
+                <div class="w-10 h-10 rounded-full bg-[#FF5722] text-white font-extrabold text-sm flex items-center justify-center shadow-md">
+                  VS
+                </div>
+              </div>
+
+              <!-- Right: Alternative 0-minute Spot -->
+              <div class="md:col-span-5 bg-white rounded-2xl p-5 border-2 border-[#10B981] shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-[#10B981] text-white text-[10px] font-extrabold px-3 py-1 rounded-bl-xl shadow-sm">
+                  대기 0분 즉시 추천
+                </div>
+                <div class="flex items-center justify-between text-xs mb-3">
+                  <span class="font-bold text-[#10B981] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                    추천 로컬 대안 스팟
+                  </span>
+                  <span id="calcAltWait" class="text-[#10B981] font-extrabold flex items-center gap-1">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 fill-current"></i> 대기 0분 (즉시 입장)
+                  </span>
+                </div>
+                <h3 id="calcAltName" class="text-xl font-extrabold text-slate-900 mb-1">대흥동 르뺑 베이커리</h3>
+                <p id="calcAltDist" class="text-xs text-slate-500 mb-3">도보 4분 (320m) · 대전 로컬 명소</p>
+
+                <div class="aspect-[16/9] rounded-xl overflow-hidden mb-3 bg-slate-100 relative">
+                  <img
+                    id="calcAltImg"
+                    src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80"
+                    alt="추천 대안 베이커리"
+                    class="w-full h-full object-cover"
+                  />
+                  <div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] font-bold">
+                    온통대전 10% 캐시백 적용
+                  </div>
+                </div>
+
+                <div class="text-xs text-emerald-900 bg-emerald-50/80 p-2.5 rounded-lg border border-emerald-200">
+                  <span class="font-bold text-emerald-800">특징:</span> <span id="calcAltDesc">천연 발효종 크루아상 & 소금빵 명가, 대기 없이 즉시 구매 가능!</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Savings Banner -->
+            <div class="mt-6 pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white/70 p-4 rounded-2xl">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 shadow-md">
+                  <i data-lucide="clock" class="w-6 h-6"></i>
+                </div>
+                <div>
+                  <div class="text-sm font-extrabold text-slate-900">
+                    총 <span id="calcSavedMinutes" class="text-emerald-600 text-lg font-black">115분</span>의 여행 시간을 아낄 수 있어요!
+                  </div>
+                  <div class="text-xs text-slate-500 flex items-center gap-2 mt-0.5">
+                    <span class="flex items-center gap-1 text-blue-600 font-bold">
+                      <i data-lucide="coins" class="w-3.5 h-3.5"></i> 온통대전 10% 추가 할인
+                    </span>
+                    <span>·</span>
+                    <span>소제동 카페 & 족욕 힐링 코스 가능</span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onclick="openCurrentCalcSpotModal()"
+                class="px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-all shadow-sm flex items-center gap-1.5 flex-shrink-0"
+              >
+                <span>스마트 대안 동선 확인</span>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 6. FEATURE DARK STRIP ================= -->
+      <section id="features" class="bg-[#0B0F19] text-white py-12 px-4 sm:px-6 lg:px-8 border-y border-slate-800">
+        <div class="max-w-7xl mx-auto">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-slate-800/80">
+            <!-- Block 1 -->
+            <div class="py-6 sm:py-2 px-4 sm:px-6 flex items-start gap-4 group transition-colors hover:bg-slate-900/40 rounded-xl">
+              <div class="w-12 h-12 rounded-xl bg-slate-800/60 border border-slate-700/60 flex items-center justify-center flex-shrink-0 text-white group-hover:text-[#FF5722] group-hover:border-[#FF5722]/40 transition-all">
+                <i data-lucide="smartphone" class="w-5 h-5 stroke-[1.5]"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-white tracking-tight">실시간 웨이팅 제로화</h3>
+                <div class="text-[10px] text-slate-400 font-mono tracking-wider uppercase mt-0.5 mb-1.5">
+                  Seamless Live Queue
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  15분 단위 AI 인파 센싱과 원격 대기 알림으로 대기열 없는 쾌적한 여행
+                </p>
+              </div>
+            </div>
+
+            <!-- Block 2 -->
+            <div class="py-6 sm:py-2 px-4 sm:px-6 flex items-start gap-4 group transition-colors hover:bg-slate-900/40 rounded-xl">
+              <div class="w-12 h-12 rounded-xl bg-slate-800/60 border border-slate-700/60 flex items-center justify-center flex-shrink-0 text-white group-hover:text-[#FF5722] group-hover:border-[#FF5722]/40 transition-all">
+                <i data-lucide="gem" class="w-5 h-5 stroke-[1.5]"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-white tracking-tight">온통대전 10% 캐시백</h3>
+                <div class="text-[10px] text-slate-400 font-mono tracking-wider uppercase mt-0.5 mb-1.5">
+                  Local Currency Cashback
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  대전 전역 제휴 맛집 & 카페 결제 시 최대 10% 즉시 환급과 로컬 마일리지
+                </p>
+              </div>
+            </div>
+
+            <!-- Block 3 -->
+            <div class="py-6 sm:py-2 px-4 sm:px-6 flex items-start gap-4 group transition-colors hover:bg-slate-900/40 rounded-xl">
+              <div class="w-12 h-12 rounded-xl bg-slate-800/60 border border-slate-700/60 flex items-center justify-center flex-shrink-0 text-white group-hover:text-[#FF5722] group-hover:border-[#FF5722]/40 transition-all">
+                <i data-lucide="refresh-cw" class="w-5 h-5 stroke-[1.5]"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-white tracking-tight">스마트 대안 동선 매칭</h3>
+                <div class="text-[10px] text-slate-400 font-mono tracking-wider uppercase mt-0.5 mb-1.5">
+                  Smart Route Optimizer
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  30분 이상 혼잡 감지 시 도보 5분 이내 숨은 명품 대안 스팟 즉시 자동 안내
+                </p>
+              </div>
+            </div>
+
+            <!-- Block 4 -->
+            <div class="py-6 sm:py-2 px-4 sm:px-6 flex items-start gap-4 group transition-colors hover:bg-slate-900/40 rounded-xl">
+              <div class="w-12 h-12 rounded-xl bg-slate-800/60 border border-slate-700/60 flex items-center justify-center flex-shrink-0 text-white group-hover:text-[#FF5722] group-hover:border-[#FF5722]/40 transition-all">
+                <i data-lucide="shield-check" class="w-5 h-5 stroke-[1.5]"></i>
+              </div>
+              <div>
+                <h3 class="text-sm font-extrabold text-white tracking-tight">노쇼 없는 클린 웨이팅</h3>
+                <div class="text-[10px] text-slate-400 font-mono tracking-wider uppercase mt-0.5 mb-1.5">
+                  Zero Waiting Penalty
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  현장 도착 전 자유로운 일정 변경과 로컬 숏폼 시청 시 대기 시간 마일리지 지급
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 7. PROMO DARK BANNER ================= -->
+      <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+          <div class="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#0B0F19] via-[#111827] to-[#0A0D14] border border-slate-800 p-8 sm:p-12 lg:p-16 text-white shadow-2xl">
+            <!-- Glows -->
+            <div class="absolute top-0 right-1/4 w-96 h-96 bg-[#0066CC]/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-1/4 w-96 h-96 bg-[#FF5722]/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <!-- Left -->
+              <div class="lg:col-span-5">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FF5722]/20 text-[#FF7043] border border-[#FF5722]/30 mb-4">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 대전 방문객 & 시민 전용 특별 혜택
+                </span>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                  줄서기 없는 대전 여행, <br />
+                  <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-slate-400">
+                    노웨이트 패스로 시작하세요
+                  </span>
+                </h2>
+                <p class="mt-4 text-sm text-slate-300 leading-relaxed max-w-md">
+                  성심당 본점 원격 대기 알림부터 소제동 감성 카페 웰컴 드링크 쿠폰, 
+                  온통대전 10% 추가 캐시백까지 모바일 패스 한 장으로 즉시 누릴 수 있습니다.
+                </p>
+
+                <div class="mt-8 flex flex-wrap items-center gap-4">
+                  <button
+                    onclick="openPassModal()"
+                    class="px-6 py-3.5 rounded-full bg-[#0066CC] hover:bg-[#0052A3] text-white font-extrabold text-sm shadow-lg shadow-[#0066CC]/30 hover:shadow-xl transition-all flex items-center gap-2 group"
+                  >
+                    <span>노웨이트 패스 무료 발급</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                  </button>
+                  <div class="flex items-center gap-2 text-xs text-slate-400 font-medium">
+                    <i data-lucide="shield" class="w-4 h-4 text-emerald-400"></i>
+                    <span>회원가입 없이 3초 만에 발급</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Center Digital Pass Mockup -->
+              <div class="lg:col-span-4 flex justify-center py-4">
+                <div
+                  onclick="openPassModal()"
+                  class="w-full max-w-xs bg-slate-900/90 backdrop-blur-xl border border-slate-700/80 rounded-2xl p-5 shadow-2xl relative cursor-pointer hover:scale-105 transition-transform duration-300 group"
+                >
+                  <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div class="flex items-center gap-1.5 font-black text-sm tracking-tight text-white">
+                      <span class="text-[#FF5722]">0</span>WAIT
+                      <span class="text-[10px] text-slate-400 font-mono">DAEJEON PASS</span>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30">
+                      VIP ACTIVE
+                    </span>
+                  </div>
+
+                  <div class="my-5 text-center flex flex-col items-center">
+                    <div class="w-32 h-32 bg-white rounded-xl p-2.5 flex items-center justify-center shadow-inner group-hover:ring-4 group-hover:ring-[#FF5722]/30 transition-all">
+                      <i data-lucide="qr-code" class="w-full h-full text-slate-900 stroke-[1.5]"></i>
+                    </div>
+                    <div class="mt-3 font-mono text-[11px] text-slate-400 tracking-widest">
+                      PASS-DJ-2026-0042
+                    </div>
+                  </div>
+
+                  <div class="space-y-1.5 text-[11px] text-slate-300 pt-2 border-t border-slate-800">
+                    <div class="flex items-center gap-1.5">
+                      <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
+                      <span>성심당 원격 대기 우선 알림권</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                      <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
+                      <span>온통대전 결제 시 최대 10% 캐시백</span>
+                    </div>
+                    <div class="flex items-center gap-1.5">
+                      <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400 flex-shrink-0"></i>
+                      <span>소제동 카페 & 베이커리 10% 할인</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: 50% Blue Badge -->
+              <div class="lg:col-span-3 flex justify-center lg:justify-end">
+                <div class="w-full max-w-xs bg-[#0066CC] rounded-3xl p-6 sm:p-8 flex flex-col justify-between text-white shadow-xl shadow-[#0066CC]/20 border border-blue-400/30">
+                  <div>
+                    <div class="text-5xl sm:text-6xl font-black tracking-tight leading-none">
+                      50%
+                    </div>
+                    <div class="mt-2 text-sm sm:text-base font-bold text-blue-100">
+                      평균 대기 시간 절약
+                    </div>
+                  </div>
+                  <div class="mt-6 pt-4 border-t border-blue-400/40 text-xs text-blue-100/90 leading-relaxed">
+                    소제동 & 대흥동 로컬 대안 스팟과 실시간 매칭 시 관광 시간 2.4시간 추가 확보!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 8. SHORTS REELS SECTION ================= -->
+      <section id="shorts" class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-8">
+            <div>
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5722]/10 text-[#FF5722] font-bold text-xs uppercase tracking-wider mb-2">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+                15초 대전 로컬 숏폼 큐레이션
+              </div>
+              <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                현지인이 알려주는 웨이팅 탈출 숏폼
+              </h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-500 font-medium">
+              광고 없는 진짜 대전 로컬 크리에이터의 현장 꿀팁
+            </p>
+          </div>
+
+          <!-- 4 Shorts Grid -->
+          <div id="shortsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Will be populated by renderShorts() in JS -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= 9. FOOTER ================= -->
+    <footer class="bg-white border-t border-slate-200/80 pt-16 pb-12 px-4 sm:px-6 lg:px-8 text-slate-600">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-200/80">
+          <!-- Col 1 & 2 -->
+          <div class="lg:col-span-2">
+            <div class="flex items-center gap-1.5 text-2xl font-black text-slate-900 tracking-tight mb-4">
+              <span class="text-[#FF5722]">0</span>
+              <span>WAIT</span>
+              <span class="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold uppercase tracking-wider border border-slate-200">
+                대전
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 max-w-sm leading-relaxed mb-6">
+              성심당 대기 120분의 피로를 줄이고, 대전의 숨은 로컬 명품 스팟과 온통대전 지역화폐 혜택을 
+              연결하는 스마트 관광 솔루션입니다.
+            </p>
+
+            <div>
+              <div class="text-xs font-bold text-slate-800 mb-2">
+                대전 로컬 위클리 핫플 & 웨이팅 리포트 구독
+              </div>
+              <form onsubmit="handleNewsletter(event)" class="relative max-w-xs">
+                <input
+                  id="newsletterEmail"
+                  type="email"
+                  required
+                  placeholder="이메일 주소를 입력하세요..."
+                  class="w-full pl-4 pr-12 py-2.5 text-xs rounded-full border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#FF5722]/30 focus:border-[#FF5722] text-slate-800 placeholder:text-slate-400"
+                />
+                <button
+                  type="submit"
+                  aria-label="구독하기"
+                  class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-[#FF5722] transition-colors shadow-sm"
+                >
+                  <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+              </form>
+              <span id="newsletterSuccess" class="hidden text-[11px] text-emerald-600 font-bold mt-1.5 block">
+                ✓ 주간 핫플 리포트 구독이 완료되었습니다!
+              </span>
+            </div>
+          </div>
+
+          <!-- Col 3 -->
+          <div>
+            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">
+              권역별 핫플 (Top Districts)
+            </h4>
+            <ul class="space-y-2.5 text-xs font-medium text-slate-500">
+              <li><a href="#hero" class="hover:text-[#FF5722] transition-colors">중구 (성심당·대흥동 거리)</a></li>
+              <li><a href="#hero" class="hover:text-[#FF5722] transition-colors">동구 (소제동 철도관사촌)</a></li>
+              <li><a href="#hero" class="hover:text-[#FF5722] transition-colors">서구 (둔산 갤러리아·갈리단길)</a></li>
+              <li><a href="#hero" class="hover:text-[#FF5722] transition-colors">유성구 (유성온천·신세계)</a></li>
+              <li><a href="#hero" class="hover:text-[#FF5722] transition-colors">대덕구 (신탄진·대청호 생태공원)</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4 -->
+          <div>
+            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">
+              서비스 탐색 (Explore)
+            </h4>
+            <ul class="space-y-2.5 text-xs font-medium text-slate-500">
+              <li><a href="#trend-spots" class="hover:text-[#FF5722] transition-colors">실시간 웨이팅 현황</a></li>
+              <li><a href="#calculator" class="hover:text-[#FF5722] transition-colors">웨이팅 제로(0분) 대안</a></li>
+              <li><a href="#shorts" class="hover:text-[#FF5722] transition-colors">15초 로컬 숏폼 릴스</a></li>
+              <li><a href="#features" class="hover:text-[#FF5722] transition-colors">온통대전 10% 캐시백</a></li>
+              <li><a href="#hero" class="hover:text-[#FF5722] transition-colors">노웨이트 VIP 트래블 패스</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 5 -->
+          <div>
+            <h4 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">
+              제휴 및 지원 (Partners)
+            </h4>
+            <ul class="space-y-2.5 text-xs font-medium text-slate-500">
+              <li><span class="hover:text-slate-900 cursor-pointer">대전광역시 관광진흥과 연계</span></li>
+              <li><span class="hover:text-slate-900 cursor-pointer">온통대전 가맹점 실시간 등록</span></li>
+              <li><span class="hover:text-slate-900 cursor-pointer">AI 대기 센서 무상 설치 문의</span></li>
+              <li><span class="hover:text-slate-900 cursor-pointer">로컬 크리에이터 파트너십</span></li>
+              <li><span class="hover:text-slate-900 cursor-pointer">자주 묻는 질문 (FAQ)</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
+          <div>
+            © 2026 0WAIT Daejeon (대전노웨이트). All rights reserved.
+          </div>
+          <div class="flex items-center gap-6">
+            <a href="#" class="hover:text-slate-600 transition-colors">이용약관</a>
+            <a href="#" class="hover:text-slate-600 transition-colors font-bold">개인정보처리방침</a>
+            <a href="#" class="hover:text-slate-600 transition-colors">위치기반서비스 이용약관</a>
+            <a href="#" class="hover:text-slate-600 transition-colors">가맹점 운영정책</a>
+          </div>
+          <div class="flex items-center gap-4 text-slate-400">
+            <a href="#" aria-label="YouTube" class="hover:text-rose-600 transition-colors"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+            <a href="#" aria-label="Instagram" class="hover:text-pink-600 transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" aria-label="Blog" class="hover:text-emerald-600 transition-colors"><i data-lucide="globe" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ================= MODAL: SPOT DETAIL & TICKET ================= -->
+    <div id="spotModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm">
+      <div class="relative w-full max-w-2xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-slate-200 flex flex-col max-h-[92vh]">
+        <button onclick="closeSpotModal()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="relative h-60 sm:h-72 w-full bg-slate-900 flex-shrink-0">
+          <img id="modalSpotImg" src="" alt="" class="w-full h-full object-cover object-center" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+          <div class="absolute bottom-5 left-6 right-6 text-white">
+            <div class="flex items-center gap-2 mb-1.5">
+              <span id="modalSpotCategory" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/20 backdrop-blur-sm border border-white/30 text-white"></span>
+              <span id="modalSpotDistrict" class="text-xs text-slate-300"></span>
+            </div>
+            <h2 id="modalSpotName" class="text-2xl sm:text-3xl font-extrabold"></h2>
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 overflow-y-auto space-y-6">
+          <!-- Status Banner -->
+          <div id="modalStatusBanner" class="p-4 rounded-2xl border flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div id="modalStatusIconBg" class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white font-extrabold">
+                <i id="modalStatusIcon" data-lucide="clock" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <div class="text-xs font-bold uppercase tracking-wider text-slate-500">
+                  실시간 대기 현황 (15분 주기 갱신)
+                </div>
+                <div id="modalStatusText" class="text-lg font-black mt-0.5"></div>
+              </div>
+            </div>
+            <button
+              id="modalTicketBtn"
+              onclick="issueRemoteTicket()"
+              class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors shadow-sm flex-shrink-0 flex items-center gap-1.5"
+            >
+              <i data-lucide="ticket" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>원격 대기 등록</span>
+            </button>
+          </div>
+
+          <!-- Ticket Box (hidden by default) -->
+          <div id="modalTicketBox" class="hidden p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 shadow-md">
+            <div class="flex items-center justify-between text-xs text-slate-300 pb-2 border-b border-slate-800">
+              <span class="flex items-center gap-1 text-emerald-400 font-bold">
+                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 원격 줄서기 접수 완료
+              </span>
+              <span class="font-mono text-[11px]">카카오 알림톡 전송됨</span>
+            </div>
+            <div class="my-3 text-center">
+              <div class="text-xs text-slate-400">내 대기 번호</div>
+              <div id="modalTicketNum" class="text-3xl font-black text-amber-400 tracking-wider">#142</div>
+              <div id="modalTicketInfo" class="text-xs text-slate-300 mt-1">내 앞 대기 84팀 · 예상 호출 시간 약 115분 후</div>
+            </div>
+            <p class="text-[11px] text-slate-400 text-center">
+              * 대기 시간 동안 아래 도보 3분 로컬 대안 스팟에서 여유롭게 즐기실 수 있습니다.
+            </p>
+          </div>
+
+          <!-- Alternative Suggestion Box -->
+          <div id="modalAltBox" class="p-5 rounded-2xl bg-amber-50/80 border border-amber-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold text-amber-800 flex items-center gap-1">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-600"></i>
+                스마트 대체 코스 제안 (웨이팅 제로)
+              </span>
+              <span id="modalAltWaitBadge" class="px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-extrabold">
+                대기 0분
+              </span>
+            </div>
+            <h4 id="modalAltName" class="text-base font-extrabold text-slate-900 mb-1">대흥동 르뺑 베이커리</h4>
+            <p id="modalAltDesc" class="text-xs text-slate-600 mb-3"></p>
+            <div class="flex items-center gap-3">
+              <button
+                onclick="switchToAlternative()"
+                class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold rounded-xl transition-colors flex items-center gap-1"
+              >
+                <span>대안 스팟 지도 안내</span>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+              <span class="text-xs text-emerald-700 font-bold">
+                온통대전 10% 캐시백 적용 가맹점
+              </span>
+            </div>
+          </div>
+
+          <!-- Ontong Daejeon Banner -->
+          <div class="p-4 rounded-2xl bg-blue-50/80 border border-blue-200 flex items-start gap-3">
+            <div class="w-9 h-9 rounded-xl bg-[#0066CC] text-white flex items-center justify-center flex-shrink-0">
+              <i data-lucide="coins" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-[#0066CC]">
+                온통대전 지역화폐 혜택 안내
+              </div>
+              <div class="text-xs text-slate-700 mt-0.5 leading-relaxed">
+                결제 금액의 <span class="font-extrabold text-[#0066CC]">최대 10% 캐시백</span>이 즉시 지급됩니다. 
+                (대전시민 및 외지 관광객 모두 온통대전 앱에서 즉시 충전 가능)
+              </div>
+            </div>
+          </div>
+
+          <!-- Meta Info -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+              <span class="font-bold text-slate-500 block mb-1">위치 및 주소</span>
+              <span id="modalSpotLoc" class="text-slate-800 font-medium flex items-start gap-1"></span>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+              <span class="font-bold text-slate-500 block mb-1">대표 시그니처 메뉴</span>
+              <span id="modalSpotMenu" class="text-slate-800 font-bold"></span>
+            </div>
+          </div>
+
+          <!-- Detailed Menu & Pricing Section -->
+          <div class="border border-slate-200/90 rounded-2xl p-5 bg-slate-50/70">
+            <div class="flex items-center justify-between mb-3.5 pb-2.5 border-b border-slate-200">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-[#FF5722]/10 text-[#FF5722] flex items-center justify-center">
+                  <i data-lucide="utensils" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-sm font-extrabold text-slate-900">대표 메뉴 및 가격표 (Menu & Pricing)</h4>
+                  <p class="text-[11px] text-slate-500">클릭하여 선택 시 예상 주문 금액과 온통대전 10% 캐시백 자동 계산</p>
+                </div>
+              </div>
+              <span class="hidden sm:inline-flex px-2 py-0.5 rounded text-[10px] font-bold bg-[#0066CC]/10 text-[#0066CC] border border-[#0066CC]/20">
+                온통대전 10% 할인
+              </span>
+            </div>
+
+            <!-- Dynamic Menu Items Container -->
+            <div id="modalMenuList" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <!-- Rendered by renderModalMenus() in JS -->
+            </div>
+
+            <!-- Menu Calculator Estimated Total Box -->
+            <div class="mt-4 pt-3.5 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="calculator" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-slate-800" id="modalSelectedMenuCount">선택한 메뉴: 0개</div>
+                  <div class="text-[10px] text-slate-500">메뉴 항목을 체크하면 실시간 합산됩니다.</div>
+                </div>
+              </div>
+              <div class="text-right flex sm:flex-col items-center sm:items-end justify-between sm:justify-center">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="text-xs text-slate-500 font-medium">예상 결제액:</span>
+                  <span id="modalEstimatedTotal" class="font-black text-slate-900 text-base">0원</span>
+                </div>
+                <div id="modalEstimatedCashback" class="text-[11px] text-[#0066CC] font-bold">
+                  온통대전 캐시백: 0원 적립 예상
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 sm:p-6 bg-slate-50 border-t border-slate-200 flex items-center justify-between gap-4">
+          <div id="modalSpotRating" class="text-xs text-slate-500">평점 ★ 4.9 (리뷰 3,840개)</div>
+          <button onclick="closeSpotModal()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-800 text-xs font-bold rounded-xl transition-colors">
+            닫기
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MODAL: VIP TRAVEL PASS ================= -->
+    <div id="passModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div class="relative w-full max-w-md bg-slate-950 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 text-white p-6 sm:p-8 flex flex-col">
+        <button onclick="closePassModal()" class="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-slate-800 text-slate-300 flex items-center justify-center hover:bg-slate-700 transition-colors">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+
+        <div class="text-center mb-6">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5722]/20 text-[#FF7043] border border-[#FF5722]/30 text-xs font-bold uppercase tracking-wider mb-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            공식 디지털 트래블 패스
+          </div>
+          <h3 class="text-2xl font-black tracking-tight">대전 노웨이트 VIP 패스</h3>
+          <p class="text-xs text-slate-400 mt-1">
+            대전 방문객 및 시민을 위한 올인원 웨이팅 프리 & 온통대전 혜택권
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 border border-slate-700/80 rounded-2xl p-5 shadow-xl relative overflow-hidden mb-6">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <div class="flex items-center gap-1.5 font-black text-sm">
+              <span class="text-[#FF5722]">0</span>WAIT
+              <span class="text-[10px] text-slate-400 font-mono">DAEJEON PASS</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold border border-emerald-500/30">
+              ACTIVE · 2026
+            </span>
+          </div>
+
+          <div class="my-5 flex flex-col items-center">
+            <div class="w-36 h-36 bg-white rounded-2xl p-3 flex items-center justify-center shadow-lg">
+              <i data-lucide="qr-code" class="w-full h-full text-slate-950 stroke-[1.5]"></i>
+            </div>
+            <div class="mt-3 flex items-center gap-2">
+              <span class="font-mono text-xs text-slate-400 tracking-wider">DJ-NOWAIT-2026-VIP</span>
+              <button onclick="copyPassCode()" class="text-[11px] text-[#0066CC] hover:underline flex items-center gap-1 font-bold">
+                <i data-lucide="copy" class="w-3 h-3"></i>
+                <span id="copyBtnText">코드 복사</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-2 text-xs text-slate-300 pt-3 border-t border-slate-800">
+            <div class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+              <span>성심당 원격 줄서기 우선 알림</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+              <span>온통대전 제휴 가맹점 10% 즉시 캐시백</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="check" class="w-4 h-4 text-emerald-400 flex-shrink-0"></i>
+              <span>소제동 카페 & 베이커리 웰컴 쿠폰 제공</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button
+            onclick="alert('모바일 지갑(Apple Wallet / Google Wallet)에 패스가 저장되었습니다.'); closePassModal();"
+            class="flex-1 py-3 rounded-xl bg-[#0066CC] hover:bg-[#0052A3] text-white text-xs font-bold transition-colors shadow-md flex items-center justify-center gap-1.5"
+          >
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>월렛에 패스 저장</span>
+          </button>
+          <button onclick="closePassModal()" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition-colors">
+            닫기
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MODAL: 15s SHORTS VIDEO PLAYER ================= -->
+    <div id="shortsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+      <div class="relative w-full max-w-sm sm:max-w-md bg-slate-950 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 text-white flex flex-col max-h-[90vh]">
+        <button onclick="closeShortsModal()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-black transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+
+        <div class="relative aspect-[9/14] bg-black overflow-hidden flex items-center justify-center">
+          <img id="shortsVideoThumb" src="" alt="" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/60"></div>
+
+          <div class="absolute top-0 left-0 right-0 h-1 bg-white/30">
+            <div class="h-full bg-[#FF5722] w-3/4 animate-pulse"></div>
+          </div>
+
+          <div class="absolute top-4 left-4 flex items-center gap-2">
+            <button onclick="toggleShortsMute()" class="p-2 rounded-full bg-black/50 text-white hover:bg-black/70 text-xs flex items-center gap-1">
+              <i id="shortsMuteIcon" data-lucide="volume-x" class="w-4 h-4"></i>
+            </button>
+            <span id="shortsWaitBadge" class="px-2.5 py-1 rounded-full bg-emerald-500/80 text-[10px] font-extrabold text-white"></span>
+          </div>
+
+          <div class="absolute right-3 bottom-24 flex flex-col items-center gap-4 z-10">
+            <button onclick="toggleShortsLike()" class="flex flex-col items-center gap-1">
+              <div id="shortsLikeBtn" class="w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md bg-black/50 text-white hover:bg-black/70">
+                <i data-lucide="heart" class="w-5 h-5"></i>
+              </div>
+              <span id="shortsLikesCount" class="text-[10px] font-bold">1,240</span>
+            </button>
+            <div class="flex flex-col items-center gap-1">
+              <div class="w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center">
+                <i data-lucide="message-circle" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-bold">148</span>
+            </div>
+            <div class="flex flex-col items-center gap-1">
+              <div class="w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center">
+                <i data-lucide="share-2" class="w-5 h-5"></i>
+              </div>
+              <span class="text-[10px] font-bold">공유</span>
+            </div>
+          </div>
+
+          <div class="absolute bottom-4 left-4 right-16">
+            <div class="flex items-center gap-2 mb-1">
+              <span id="shortsCreator" class="font-extrabold text-sm"></span>
+              <span class="px-2 py-0.5 rounded-full bg-[#FF5722] text-[10px] font-bold">팔로우</span>
+            </div>
+            <h4 id="shortsTitle" class="text-sm font-bold leading-snug drop-shadow mb-1"></h4>
+            <div class="flex items-center gap-1 text-[11px] text-slate-300">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#FF5722]"></i>
+              <span id="shortsLocation"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-900 border-t border-slate-800 text-xs overflow-y-auto max-h-48">
+          <div class="font-bold text-slate-200 mb-1 flex items-center gap-1.5">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>크리에이터 핵심 현장 팁</span>
+          </div>
+          <ul id="shortsTipsList" class="space-y-1.5 text-slate-300 text-[11px]"></ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= JAVASCRIPT: DATA & INTERACTIONS ================= -->
+    <script>
+      // 1. Full Database of 26 Authentic Daejeon Hotspots & Restaurants
+      const HOTSPOTS = [
+        // --- [중구 원도심 / 은행·선화·대흥동] ---
+        {
+          id: 'sungsimdang-main',
+          name: '성심당 본점',
+          category: 'bakery',
+          categoryLabel: '원조 명장 베이커리',
+          district: '중구 (은행·대흥동)',
+          location: '대전 중구 대종로480번길 15',
+          waitTimeMinutes: 115,
+          isInstantAccess: false,
+          waitingCount: 84,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '대한민국 대표 빵집! 튀김소보로와 부추빵의 원조 성지',
+          signatureMenu: '튀김소보로 (1,700원), 판타롱 부추빵 (2,000원)',
+          priceLevel: '₩ 1,700 ~ 20,000',
+          alternativeSpot: {
+            name: '대흥동 르뺑 베이커리',
+            distance: '도보 4분 (320m)',
+            waitTimeMinutes: 0,
+            description: '천연 발효종 크루아상 & 소금빵 명가, 대기 없이 즉시 구매 가능!',
+          },
+          rating: 4.9,
+          reviewsCount: 3840,
+          isHighlight: true,
+          menus: [
+            { name: '튀김소보로', price: 1700, badge: '대표', desc: '바삭한 소보로 안에 달콤한 팥앙금 (40년 시그니처)' },
+            { name: '튀소구마', price: 1900, badge: '인기', desc: '달콤하고 부드러운 고구마 앙금이 가득 찬 튀소' },
+            { name: '판타롱 부추빵', price: 2000, badge: '대표', desc: '신선한 생부추와 계란, 고소한 참기름 향의 조화' },
+            { name: '보문산 메아리', price: 6000, badge: '베스트', desc: '결마다 시럽이 촉촉하게 배어든 대표 페이스트리' },
+            { name: '초코튀소', price: 2000, badge: '인기', desc: '바삭한 튀김소보로에 진한 다크초콜릿 코팅' },
+            { name: '명란바게트', price: 3800, badge: '추천', desc: '짭짤한 특제 명란버터와 김가루를 얹은 바게트' },
+            { name: '순크림빵', price: 2500, badge: '인기', desc: '신선한 100% 동물성 우유 생크림이 꽉 찬 빵' },
+            { name: '작은메아리', price: 3000, badge: '추천', desc: '겉바속촉 퀸아망 스타일의 달콤한 버터 페이스트리' },
+          ],
+        },
+        {
+          id: 'sungsimdang-boutique',
+          name: '성심당 케익부띠끄',
+          category: 'bakery',
+          categoryLabel: '프리미엄 디저트 부티크',
+          district: '중구 (은행·대흥동)',
+          location: '대전 중구 대종로 480',
+          waitTimeMinutes: 40,
+          isInstantAccess: false,
+          waitingCount: 28,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '딸기시루 케이크와 순수롤로 유명한 유럽 감성 디저트 전문점',
+          signatureMenu: '순수롤 1조각 (3,500원), 딸기시루 미니 (9,000원)',
+          priceLevel: '₩ 3,500 ~ 45,000',
+          rating: 4.8,
+          reviewsCount: 2480,
+          menus: [
+            { name: '순수롤 (1롤)', price: 14000, badge: '대표', desc: '우유 본연의 깊고 부드러운 순수 생크림 롤케이크' },
+            { name: '순수롤 (1조각)', price: 3500, badge: '인기', desc: '부담 없이 가볍게 즐기는 시그니처 롤케이크 1조각' },
+            { name: '딸기시루 미니 조각', price: 9000, badge: '베스트', desc: '국산 생딸기와 진한 가나슈 초코시트가 층층이 쌓인 케이크' },
+            { name: '교황의 치즈스콘', price: 3800, badge: '추천', desc: '프란치스코 교황 성하 식탁에 올랐던 고소한 치즈스콘' },
+            { name: '성심당 타르트 조각', price: 4500, badge: '디저트', desc: '제철 생과일을 아낌없이 올린 수제 타르트' },
+          ],
+        },
+        {
+          id: 'gwangcheon-restaurant',
+          name: '원조 광천식당',
+          category: 'restaurant',
+          categoryLabel: '대전 45년 전통 매운 미식',
+          district: '중구 (은행·대흥동)',
+          location: '대전 중구 대종로505번길 29',
+          waitTimeMinutes: 45,
+          isInstantAccess: false,
+          waitingCount: 22,
+          ontongCashbackRate: 7,
+          imageUrl: 'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '백종원 3대천왕 극찬! 중독적인 양념의 오징어·두부 두루치기',
+          signatureMenu: '수육 소 (24,000원), 오징어두루치기 (16,000원)',
+          priceLevel: '₩ 2,500 ~ 35,000',
+          alternativeSpot: {
+            name: '진로집 (두부두루치기 백년가게)',
+            distance: '도보 3분 (210m)',
+            waitTimeMinutes: 10,
+            description: '부드러운 옛날 순한맛 두부두루치기, 테이블 회전 빠른 편',
+          },
+          rating: 4.7,
+          reviewsCount: 2150,
+          menus: [
+            { name: '오징어두루치기 (2인)', price: 16000, badge: '대표', desc: '통통한 생물 오징어와 매콤칼칼한 대전 원조 특제 양념' },
+            { name: '두부두루치기 (2인)', price: 15000, badge: '대표', desc: '직접 만든 손두부와 알싸한 청양고추가 어우러진 맛' },
+            { name: '수육 (소)', price: 24000, badge: '베스트', desc: '국내산 암퇘지 삼겹살을 야들야들하게 삶아낸 명품 수육' },
+            { name: '수육 (대)', price: 35000, badge: '푸짐', desc: '3~4인이 넉넉하게 즐기는 푸짐한 수육 한 접시' },
+            { name: '칼국수 면사리', price: 2500, badge: '필수', desc: '두루치기 양념에 바로 비벼 먹는 쫄깃한 칼국수 면' },
+            { name: '칼국수 (식사)', price: 6000, badge: '추천', desc: '멸치 육수로 끓여 매운맛을 달래주는 따뜻한 칼국수' },
+          ],
+        },
+        {
+          id: 'jinrojip',
+          name: '진로집 (두부두루치기 백년가게)',
+          category: 'restaurant',
+          categoryLabel: '50년 전통 중기부 백년가게',
+          district: '중구 (은행·대흥동)',
+          location: '대전 중구 중교로 45-5',
+          waitTimeMinutes: 10,
+          isInstantAccess: false,
+          waitingCount: 5,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '1969년 개업 이래 50년 넘게 사랑받는 원조 순한맛/매운맛 손두부 두루치기',
+          signatureMenu: '두부두루치기 소 (13,000원), 두부전 (6,000원)',
+          priceLevel: '₩ 6,000 ~ 25,000',
+          rating: 4.8,
+          reviewsCount: 1870,
+          menus: [
+            { name: '두부두루치기 (소)', price: 13000, badge: '대표', desc: '몽글몽글 순한 두부 본연의 고소함과 감칠맛 넘치는 양념' },
+            { name: '두부두루치기 (중)', price: 18000, badge: '인기', desc: '2~3인이 넉넉하게 나눠 먹기 좋은 푸짐한 두부 한 판' },
+            { name: '두부+오징어 두루치기', price: 17000, badge: '베스트', desc: '부드러운 손두부와 쫄깃한 오징어의 황금 밸런스' },
+            { name: '고소한 두부전', price: 6000, badge: '추천', desc: '노릇노릇 들기름에 부쳐낸 고소하고 부드러운 두부 부침' },
+            { name: '국수사리', price: 2000, badge: '필수', desc: '남은 두부 양념에 쓱쓱 비벼먹는 소면 사리' },
+          ],
+        },
+        {
+          id: 'sindo-kalguksu',
+          name: '신도칼국수 본점',
+          category: 'restaurant',
+          categoryLabel: '60년 전통 사골 손칼국수',
+          district: '중구 (은행·대흥동)',
+          location: '대전 중구 대전로 785-24',
+          waitTimeMinutes: 5,
+          isInstantAccess: true,
+          waitingCount: 2,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '1961년부터 사골 육수와 멸치를 우려낸 깊은 국물맛의 대전 칼국수 원조',
+          signatureMenu: '칼국수 (6,000원), 수육 소 (18,000원)',
+          priceLevel: '₩ 6,000 ~ 25,000',
+          rating: 4.7,
+          reviewsCount: 1650,
+          menus: [
+            { name: '원조 손칼국수', price: 6000, badge: '대표', desc: '사골 육수와 들깨가루가 어우러져 구수하고 진한 60년 손칼국수' },
+            { name: '수육 (소)', price: 18000, badge: '베스트', desc: '부드럽게 삶아낸 돼지 수육과 알싸한 파양념장' },
+            { name: '수육 (대)', price: 25000, badge: '푸짐', desc: '온 가족이 함께 즐기기 좋은 넉넉한 수육 한 접시' },
+            { name: '두부두루치기', price: 14000, badge: '추천', desc: '자극적이지 않고 감칠맛 나는 옛날식 두부두루치기' },
+          ],
+        },
+        {
+          id: 'le-pain-daeheung',
+          name: '대흥동 르뺑 베이커리',
+          category: 'bakery',
+          categoryLabel: '천연 발효종 명품 빵집',
+          district: '중구 (은행·대흥동)',
+          location: '대전 중구 중교로 32',
+          waitTimeMinutes: 0,
+          isInstantAccess: true,
+          waitingCount: 0,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '성심당 도보 4분! 대기 없이 즐기는 프랑스 버터 크루아상 & 소금빵 명가',
+          signatureMenu: '소금빵 (2,800원), 아몬드 크루아상 (4,200원)',
+          priceLevel: '₩ 2,800 ~ 12,000',
+          rating: 4.8,
+          reviewsCount: 940,
+          menus: [
+            { name: '고메버터 소금빵', price: 2800, badge: '대표', desc: '프랑스 이즈니 버터를 가득 품어 겉바속촉 고소한 소금빵' },
+            { name: '아몬드 크루아상', price: 4200, badge: '베스트', desc: '고소한 아몬드 크림과 바삭한 슬라이스가 듬뿍 올라간 빵' },
+            { name: '잠봉뵈르 샌드위치', price: 7500, badge: '인기', desc: '수제 잠봉 햄과 무염 버터의 고급스러운 밸런스' },
+            { name: '무화과 깜파뉴', price: 5500, badge: '추천', desc: '천연 발효종에 달콤한 건무화과와 호두가 씹히는 건강빵' },
+          ],
+        },
+        {
+          id: 'heerak-banjeom',
+          name: '희락반점 (70년 화교 노포)',
+          category: 'restaurant',
+          categoryLabel: '70년 전통 화교 중식 노포',
+          district: '중구 (은행·대흥동)',
+          location: '대전 중구 중앙로121번길 44',
+          waitTimeMinutes: 15,
+          isInstantAccess: false,
+          waitingCount: 4,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '잘게 다진 고기가 듬뿍 들어간 원조 유니짜장과 옛날식 투명 소스 탕수육',
+          signatureMenu: '유니짜장 (7,000원), 탕수육 소 (22,000원)',
+          priceLevel: '₩ 7,000 ~ 35,000',
+          rating: 4.7,
+          reviewsCount: 1320,
+          menus: [
+            { name: '원조 유니짜장', price: 7000, badge: '대표', desc: '돼지고기와 양파를 잘게 다져 볶아낸 감칠맛 넘치는 짜장면' },
+            { name: '옛날 탕수육 (소)', price: 22000, badge: '베스트', desc: '바삭하고 얇은 튀김옷에 맑고 투명한 새콤달콤 전통 소스' },
+            { name: '삼선 짬뽕', price: 9500, badge: '인기', desc: '해물이 듬뿍 들어가 불맛이 은은하고 개운한 짬뽕' },
+            { name: '군만두 (10개)', price: 6500, badge: '추천', desc: '직접 빚어 노릇노릇 바삭하게 튀겨낸 수제 만두' },
+          ],
+        },
+
+        // --- [동구 / 소제동 철도관사촌 & 대전역 & 삼성동] ---
+        {
+          id: 'oc-kalguksu',
+          name: '오씨칼국수 본점',
+          category: 'restaurant',
+          categoryLabel: '원조 물총조개 칼국수',
+          district: '동구 (소제동)',
+          location: '대전 동구 옛신탄진로 13',
+          waitTimeMinutes: 60,
+          isInstantAccess: false,
+          waitingCount: 38,
+          ontongCashbackRate: 7,
+          imageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '탱글탱글 신선한 생동죽조개 물총탕과 시원칼칼 손칼국수',
+          signatureMenu: '손칼국수 (8,000원), 물총조개탕 (14,000원)',
+          priceLevel: '₩ 1,000 ~ 18,000',
+          alternativeSpot: {
+            name: '신도칼국수 본점 (60년 백년가게)',
+            distance: '차량 6분 (2.4km)',
+            waitTimeMinutes: 5,
+            description: '사골 육수와 들깨가루의 고소한 풍미, 빠른 테이블 회전',
+          },
+          rating: 4.8,
+          reviewsCount: 3120,
+          menus: [
+            { name: '원조 손칼국수', price: 8000, badge: '대표', desc: '동죽조개와 멸치로 우려낸 시원하고 칼칼한 국물 손칼국수' },
+            { name: '물총조개탕 (생동죽)', price: 14000, badge: '시그니처', desc: '씹을 때 육즙이 톡 터지는 신선한 생동죽조개 듬뿍 한 냄비' },
+            { name: '해물파전', price: 12000, badge: '인기', desc: '오징어, 조갯살, 쪽파를 아낌없이 넣어 겉바속촉 구워낸 전' },
+            { name: '칼칼한 매운김치 (추가)', price: 0, badge: '명물', desc: '오씨칼국수의 상징! 중독성 강한 매운 배추김치 (무료)' },
+            { name: '공기밥', price: 1000, badge: '식사', desc: '물총탕 국물에 말아 먹으면 든든한 쌀밥' },
+          ],
+        },
+        {
+          id: 'soje-watermill',
+          name: '소제동 워터밀 (Watermill)',
+          category: 'cafe',
+          categoryLabel: '수경 가든 감성 브런치',
+          district: '동구 (소제동)',
+          location: '대전 동구 수향길 101',
+          waitTimeMinutes: 0,
+          isInstantAccess: true,
+          waitingCount: 0,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '100년 철도관사촌 물레방아 수경 정원에서 즐기는 스마트 수경재배 브런치',
+          signatureMenu: '에그베네딕트 (16,000원), 핑크 자몽 에이드 (6,500원)',
+          priceLevel: '₩ 5,500 ~ 25,000',
+          rating: 4.8,
+          reviewsCount: 1420,
+          menus: [
+            { name: '워터밀 에그 베네딕트', price: 16000, badge: '대표', desc: '스마트팜 수경재배 채소와 훈제연어, 수란의 조화' },
+            { name: '트러플 크림 리조또', price: 17500, badge: '베스트', desc: '이탈리아산 블랙 트러플 오일과 버섯의 깊은 풍미' },
+            { name: '수경 바질 페스토 파스타', price: 15500, badge: '추천', desc: '직접 재배한 신선한 생바질과 통새우 오일 파스타' },
+            { name: '핑크 자몽 생착즙 에이드', price: 6500, badge: '인기', desc: '생자몽을 즉석에서 착즙한 비타민 가득 청량 에이드' },
+            { name: '플랫 화이트 커피', price: 5500, badge: '음료', desc: '스페셜티 원두의 진하고 고소한 라떼 아트' },
+            { name: '시즌 프렌치 토스트', price: 13500, badge: '디저트', desc: '마스카포네 크림과 계절 과일을 얹은 촉촉한 브리오슈' },
+          ],
+        },
+        {
+          id: 'soje-poongnyuga',
+          name: '소제동 풍뉴가 (風流家)',
+          category: 'cafe',
+          categoryLabel: '대나무 숲 티하우스',
+          district: '동구 (소제동)',
+          location: '대전 동구 수향길 31',
+          waitTimeMinutes: 15,
+          isInstantAccess: false,
+          waitingCount: 5,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '울창한 대나무 숲을 감상하며 마시는 블렌딩 티와 티 칵테일',
+          signatureMenu: '산들바람 티 (7,000원), 태양의 차 (7,500원)',
+          priceLevel: '₩ 6,500 ~ 15,000',
+          rating: 4.6,
+          reviewsCount: 1680,
+          menus: [
+            { name: '산들바람 블렌딩 티', price: 7000, badge: '대표', desc: '백차와 청포도, 레몬밤이 어우러진 시원한 시그니처 티' },
+            { name: '태양의 차 (히비스커스)', price: 7500, badge: '베스트', desc: '루이보스와 히비스커스 베이스의 새콤달콤 붉은 티' },
+            { name: '대나무 숲 티 칵테일 (논알콜)', price: 8500, badge: '인기', desc: '대나무 잎 향과 탄산이 청량하게 톡 쏘는 무알콜 칵테일' },
+            { name: '말차 테린느 디저트', price: 6500, badge: '디저트', desc: '생초콜릿처럼 꾸덕하고 진한 유기농 말차 테린느' },
+            { name: '소제 밀크티', price: 7000, badge: '추천', desc: '홍차 잎을 24시간 냉침해 은은한 단맛의 수제 밀크티' },
+          ],
+        },
+        {
+          id: 'soje-byeot',
+          name: '소제동 볕 (한옥 카페)',
+          category: 'cafe',
+          categoryLabel: '한옥 수플레 팬케이크',
+          district: '동구 (소제동)',
+          location: '대전 동구 수향길 67',
+          waitTimeMinutes: 0,
+          isInstantAccess: true,
+          waitingCount: 0,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '아늑한 고택 마당에서 맛보는 퐁신퐁신 즉석 수제 수플레 팬케이크',
+          signatureMenu: '플레인 수플레 (13,000원), 볕 아인슈페너 (6,500원)',
+          priceLevel: '₩ 5,500 ~ 17,000',
+          rating: 4.7,
+          reviewsCount: 1120,
+          menus: [
+            { name: '플레인 수플레 팬케이크', price: 13000, badge: '대표', desc: '주문 즉시 거품을 내어 구워내는 입안에서 사르르 녹는 수플레' },
+            { name: '바나나 브륄레 수플레', price: 15000, badge: '베스트', desc: '캐러멜 라이징 된 달콤 바나나와 부드러운 수플레' },
+            { name: '볕 아인슈페너', price: 6500, badge: '인기', desc: '진한 롱블랙 위에 묵직하고 달콤한 수제 크림' },
+            { name: '제주 유채꿀 자몽차', price: 6000, badge: '추천', desc: '은은한 꿀 향과 자몽의 쌉싸름함이 조화로운 차' },
+          ],
+        },
+        {
+          id: 'soje-oncheonjip',
+          name: '온천집 소제점',
+          category: 'restaurant',
+          categoryLabel: '온천 정원 1인 미소 샤브샤브',
+          district: '동구 (소제동)',
+          location: '대전 동구 수향길 53',
+          waitTimeMinutes: 25,
+          isInstantAccess: false,
+          waitingCount: 9,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '김이 모락모락 피어오르는 온천 족욕 정원에서 즐기는 1인 된장 샤브샤브',
+          signatureMenu: '온천집 1인 된장 샤브 (19,500원), 트러플 메밀전 (12,000원)',
+          priceLevel: '₩ 12,000 ~ 29,000',
+          rating: 4.8,
+          reviewsCount: 1540,
+          menus: [
+            { name: '온천집 1인 된장 샤브 (우삼겹)', price: 19500, badge: '대표', desc: '특제 미소 육수에 채소 3단 찬합과 우삼겹 샤브' },
+            { name: '온천집 1인 얼큰 샤브', price: 20500, badge: '인기', desc: '칼칼한 고추기름 육수로 즐기는 개운한 샤브샤브' },
+            { name: '트러플 감자 메밀전', price: 12000, badge: '베스트', desc: '감자채와 메밀전 위에 은은한 트러플 오일 향' },
+            { name: '비프 미소 로스트비프 덮밥', price: 18000, badge: '추천', desc: '부드러운 소고기 수비드 스테이크를 올린 덮밥' },
+          ],
+        },
+        {
+          id: 'panam-myeonok',
+          name: '원조 판암면옥',
+          category: 'restaurant',
+          categoryLabel: '50년 전통 평양 메밀냉면',
+          district: '동구 (소제동)',
+          location: '대전 동구 옥천로 162-17',
+          waitTimeMinutes: 0,
+          isInstantAccess: true,
+          waitingCount: 0,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '순메밀 70% 면발과 동치미·육수의 담백한 감칠맛, 50년 전통 메밀명가',
+          signatureMenu: '평양 물냉면 (10,000원), 메밀녹두빈대떡 (8,000원)',
+          priceLevel: '₩ 8,000 ~ 25,000',
+          rating: 4.7,
+          reviewsCount: 980,
+          menus: [
+            { name: '순메밀 물냉면', price: 10000, badge: '대표', desc: '육수와 동치미 국물의 시원하고 슴슴한 평양냉면' },
+            { name: '비빔 메밀냉면', price: 10000, badge: '인기', desc: '매콤달콤한 비빔 양념에 무절임을 얹은 냉면' },
+            { name: '메밀 녹두빈대떡', price: 8000, badge: '베스트', desc: '돼지고기와 숙주가 들어간 바삭바삭한 녹두전' },
+            { name: '수육 한 접시', price: 20000, badge: '추천', desc: '잡내 없이 깔끔하게 삶아낸 돼지고기 편육' },
+          ],
+        },
+
+        // --- [서구 / 둔산동 & 갈마동 갈리단길 & 탄방동] ---
+        {
+          id: 'harehare-dunsan',
+          name: '하레하레 (HARE HARE) 둔산점',
+          category: 'bakery',
+          categoryLabel: '세계 제빵 월드컵 챔피언',
+          district: '서구 (둔산·갈마동)',
+          location: '대전 서구 둔산로 155',
+          waitTimeMinutes: 0,
+          isInstantAccess: true,
+          waitingCount: 0,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '세계 제빵 월드컵 우승 기능장의 명품 빵집! 즉시 입장 가능',
+          signatureMenu: '못난이 녹차 인절미, 쌀카스테라, 크림치즈 바게트',
+          priceLevel: '₩ 2,500 ~ 18,000',
+          rating: 4.8,
+          reviewsCount: 1920,
+          menus: [
+            { name: '못난이 녹차 인절미', price: 4500, badge: '대표', desc: '쫄깃한 떡과 쌉싸름한 보성 녹차 크림, 콩고물의 환상 조화' },
+            { name: '크림치즈 바게트', price: 4800, badge: '베스트', desc: '직접 배합한 진한 크림치즈와 향긋한 마늘 버터' },
+            { name: '하레 쌀카스테라', price: 5500, badge: '추천', desc: '국내산 쌀가루로 구워 소화가 잘되고 부드러운 카스테라' },
+            { name: '소금버터롤', price: 2500, badge: '인기', desc: '프랑스 고메버터와 영국 말돈 소금의 풍미가 가득' },
+            { name: '어니언 크림치즈 베이글', price: 4200, badge: '추천', desc: '바삭한 호두 베이글 속 차가운 양파 크림치즈' },
+            { name: '몽블랑 페이스트리', price: 5800, badge: '인기', desc: '시럽이 촉촉하게 스며든 겹겹의 달콤한 페이스트리' },
+          ],
+        },
+        {
+          id: 'wata-yoyup',
+          name: '와타요업 (갈리단길 텐동)',
+          category: 'restaurant',
+          categoryLabel: '갈리단길 1위 일본식 텐동',
+          district: '서구 (둔산·갈마동)',
+          location: '대전 서구 갈마역로25번길 9-9',
+          waitTimeMinutes: 30,
+          isInstantAccess: false,
+          waitingCount: 12,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '바삭바삭 튀겨낸 장어와 제철 해산물이 듬뿍 올라간 대전 최고 텐동 성지',
+          signatureMenu: '와타텐동 (11,000원), 스페셜 텐동 (16,500원)',
+          priceLevel: '₩ 11,000 ~ 17,500',
+          rating: 4.8,
+          reviewsCount: 1780,
+          menus: [
+            { name: '와타텐동 (기본)', price: 11000, badge: '대표', desc: '새우2, 오징어, 꽈리고추, 단호박, 연근, 김, 온천계란' },
+            { name: '스페셜 텐동', price: 16500, badge: '베스트', desc: '통자연산 장어 한 마리와 새우, 해산물이 가득 찬 텐동' },
+            { name: '아나고 텐동', price: 14500, badge: '인기', desc: '바삭하게 튀겨낸 큼직한 바다장어가 메인인 텐동' },
+            { name: '바질 토마토 츠케모노', price: 3500, badge: '사이드', desc: '화이트와인과 바질에 절여 상큼한 방울토마토' },
+          ],
+        },
+        {
+          id: 'kintoto-galma',
+          name: '킨토토 갈마본점',
+          category: 'restaurant',
+          categoryLabel: '감성 마제소바 & 카츠',
+          district: '서구 (둔산·갈마동)',
+          location: '대전 서구 계룡로 403',
+          waitTimeMinutes: 10,
+          isInstantAccess: false,
+          waitingCount: 4,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '중독성 넘치는 특제 민찌 소스와 탱글한 우동면을 비벼 먹는 일본식 마제소바',
+          signatureMenu: '타마고 마제소바 (11,000원), 모듬 카츠하이볼 (13,500원)',
+          priceLevel: '₩ 9,500 ~ 16,000',
+          rating: 4.7,
+          reviewsCount: 1450,
+          menus: [
+            { name: '타마고 마제소바', price: 11000, badge: '대표', desc: '특제 볶음 고기 소스에 반숙 계란을 비벼 먹는 소바' },
+            { name: '카츠 마제소바', price: 13500, badge: '베스트', desc: '바삭한 등심 안심 카츠가 푸짐하게 올라간 시그니처' },
+            { name: '안심 카츠 (단품)', price: 12000, badge: '인기', desc: '저온 숙성하여 분홍빛 육즙이 가득한 안심 돈카츠' },
+            { name: '생맥주 / 하이볼', price: 5000, badge: '음료', desc: '시원하고 청량한 일본식 산토리 하이볼' },
+          ],
+        },
+        {
+          id: 'daeseon-kalguksu',
+          name: '대선칼국수 둔산점',
+          category: 'restaurant',
+          categoryLabel: '65년 전통 비빔칼국수 노포',
+          district: '서구 (둔산·갈마동)',
+          location: '대전 서구 둔산중로40번길 28',
+          waitTimeMinutes: 15,
+          isInstantAccess: false,
+          waitingCount: 6,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '비벼먹는 칼국수의 원조! 수육과 매콤한 오징어두루치기의 성지',
+          signatureMenu: '비빔칼국수 (8,500원), 수육 소 (28,000원)',
+          priceLevel: '₩ 8,000 ~ 35,000',
+          rating: 4.7,
+          reviewsCount: 2210,
+          menus: [
+            { name: '비빔 칼국수', price: 8500, badge: '대표', desc: '참기름과 쑥갓, 특제 고추장에 비벼먹는 대전 명물 칼국수' },
+            { name: '손칼국수 (온면)', price: 8000, badge: '인기', desc: '멸치 육수에 쑥갓 향이 은은한 전통 손칼국수' },
+            { name: '수육 (소)', price: 28000, badge: '베스트', desc: '얇고 쫄깃하게 썰어낸 명품 돼지고기 수육' },
+            { name: '오징어 두루치기', price: 28000, badge: '추천', desc: '칼칼한 양념에 칼국수 사리를 넣어 비벼 먹는 별미' },
+          ],
+        },
+        {
+          id: 'misenosense',
+          name: '미세노센세 (탄방동)',
+          category: 'restaurant',
+          categoryLabel: '백종원 3대천왕 수제 일본카레',
+          district: '서구 (둔산·갈마동)',
+          location: '대전 서구 계룡로553번길 86',
+          waitTimeMinutes: 20,
+          isInstantAccess: false,
+          waitingCount: 7,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '취향대로 매운맛 단계와 토핑(안심카츠, 모짜렐라치즈)을 선택하는 수제 카레',
+          signatureMenu: '수제 카레 (8,000원), 안심카츠 토핑 (4,000원)',
+          priceLevel: '₩ 8,000 ~ 16,000',
+          rating: 4.8,
+          reviewsCount: 1620,
+          menus: [
+            { name: '수제 카레 (1~4단계)', price: 8000, badge: '대표', desc: '양파를 10시간 캐러멜 라이징 해 끓여낸 깊고 진한 카레' },
+            { name: '안심 돈카츠 토핑', price: 4000, badge: '베스트', desc: '바삭하게 튀겨낸 부드러운 돼지 안심 튀김' },
+            { name: '새우튀김 토핑 (2개)', price: 4500, badge: '인기', desc: '통통한 새우를 바삭하게 튀긴 토핑' },
+            { name: '모짜렐라 치즈 튀김', price: 3000, badge: '추천', desc: '치즈가 주욱 늘어나는 바삭한 치즈스틱 토핑' },
+          ],
+        },
+
+        // --- [유성구 / 봉명동 온천거리 · 도룡동 · 신성동] ---
+        {
+          id: 'taepyeong-gukbap',
+          name: '원조 태평소국밥 봉명점',
+          category: 'restaurant',
+          categoryLabel: '24시간 대전 1등 한우 소국밥',
+          district: '유성구 (온천·도룡동)',
+          location: '대전 유성구 온천동로65번길 50',
+          waitTimeMinutes: 35,
+          isInstantAccess: false,
+          waitingCount: 18,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '소고기가 뚝배기 가득 들어간 맑고 진한 소국밥과 당일 도축 한우 육사시미',
+          signatureMenu: '소국밥 (8,500원), 한우 육사시미 (11,000원)',
+          priceLevel: '₩ 8,500 ~ 32,000',
+          alternativeSpot: {
+            name: '일당감자탕 유성1호점',
+            distance: '도보 3분 (250m)',
+            waitTimeMinutes: 5,
+            description: '구수한 시래기와 푹 곤 돼지등뼈 해장국, 회전율 매우 빠름',
+          },
+          rating: 4.9,
+          reviewsCount: 4210,
+          menus: [
+            { name: '원조 소국밥', price: 8500, badge: '대표', desc: '국내산 소고기를 듬뿍 넣고 맑고 시원하게 끓여낸 뚝배기 국밥' },
+            { name: '한우 육사시미 (100g)', price: 11000, badge: '베스트', desc: '당일 도축 신선한 한우 우둔살 쫄깃한 사시미' },
+            { name: '소내장탕', price: 9000, badge: '인기', desc: '얼큰하고 칼칼한 양념에 쫄깃한 소양과 곱창' },
+            { name: '매운 소갈비찜 (중)', price: 31000, badge: '안주', desc: '야들야들한 소갈비에 매콤달콤 양념이 쏙 배어든 찜' },
+          ],
+        },
+        {
+          id: 'ildang-gamjatang',
+          name: '일당감자탕 유성1호점',
+          category: 'restaurant',
+          categoryLabel: '구수한 시래기 뼈다귀감자탕',
+          district: '유성구 (온천·도룡동)',
+          location: '대전 유성구 계룡로59번길 36',
+          waitTimeMinutes: 5,
+          isInstantAccess: true,
+          waitingCount: 2,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '강원도 양구 펀치볼 시래기가 듬뿍 올라간 24시간 원조 뼈다귀 감자탕',
+          signatureMenu: '뼈다귀해장국 (10,000원), 감자탕 소 (32,000원)',
+          priceLevel: '₩ 10,000 ~ 45,000',
+          rating: 4.8,
+          reviewsCount: 2650,
+          menus: [
+            { name: '뼈다귀 해장국 (식사)', price: 10000, badge: '대표', desc: '살코기가 푸짐한 돼지등뼈와 부드러운 양구 시래기' },
+            { name: '감자탕 (소)', price: 32000, badge: '베스트', desc: '2인이 배부르게 먹는 푸짐한 시래기 감자탕 전골' },
+            { name: '볶음밥', price: 2500, badge: '필수', desc: '진한 국물에 참기름과 김가루, 깍두기를 넣어 볶아낸 밥' },
+            { name: '라면사리', price: 2000, badge: '추가', desc: '보글보글 끓는 감자탕 국물에 넣어 끓이는 면사리' },
+          ],
+        },
+        {
+          id: 'sootgol-wonok',
+          name: '신성동 숯골원옥 (4대 전통)',
+          category: 'restaurant',
+          categoryLabel: '4대 70년 전통 꿩냉면 명가',
+          district: '유성구 (온천·도룡동)',
+          location: '대전 유성구 신성로84번길 18',
+          waitTimeMinutes: 10,
+          isInstantAccess: false,
+          waitingCount: 3,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '평양에서부터 4대째 내려오는 꿩고기 육수 메밀 평양냉면과 평양만두',
+          signatureMenu: '꿩냉면 (12,000원), 평양만두 (8,000원)',
+          priceLevel: '₩ 8,000 ~ 30,000',
+          rating: 4.8,
+          reviewsCount: 1840,
+          menus: [
+            { name: '원조 꿩냉면', price: 12000, badge: '시그니처', desc: '삶은 꿩고기 살을 찢어 넣고 동치미와 꿩육수를 섞은 전통 냉면' },
+            { name: '물냉면 (평양식)', price: 10000, badge: '대표', desc: '닭육수와 동치미 육수의 담백하고 새콤한 메밀냉면' },
+            { name: '수제 평양왕만두 (6개)', price: 8000, badge: '베스트', desc: '두부와 숙주, 돼지고기를 듬뿍 채운 큼직한 이북식 만두' },
+            { name: '토종 암탉 백숙', price: 45000, badge: '보양', desc: '엄나무와 황기를 넣고 푹 고아낸 한방 토종닭' },
+          ],
+        },
+        {
+          id: 'oncheon-kalguksu',
+          name: '온천손칼국수 (유성온천)',
+          category: 'restaurant',
+          categoryLabel: '불쭈꾸미 & 물총손칼국수',
+          district: '유성구 (온천·도룡동)',
+          location: '대전 유성구 온천북로 59',
+          waitTimeMinutes: 20,
+          isInstantAccess: false,
+          waitingCount: 8,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '화끈한 불향의 쭈꾸미 볶음과 조개가 톡 터지는 시원한 물총칼국수의 조화',
+          signatureMenu: '직화 쭈꾸미볶음 (13,000원), 물총칼국수 (8,500원)',
+          priceLevel: '₩ 8,500 ~ 26,000',
+          rating: 4.7,
+          reviewsCount: 1910,
+          menus: [
+            { name: '직화 쭈꾸미볶음 (1인)', price: 13000, badge: '대표', desc: '불향 가득한 매콤 양념에 김가루와 콩나물을 비벼먹는 쭈꾸미' },
+            { name: '물총 손칼국수', price: 8500, badge: '베스트', desc: '싱싱한 생동죽조개로 시원하게 끓여낸 쫄깃한 손칼국수' },
+            { name: '수육 (소)', price: 15000, badge: '추천', desc: '쭈꾸미 볶음과 함께 쌈 싸 먹으면 별미인 촉촉한 수육' },
+          ],
+        },
+        {
+          id: 'yuseong-footbath',
+          name: '유성온천 야외 족욕체험장',
+          category: 'healing',
+          categoryLabel: '도심 속 무료 천연 온천',
+          district: '유성구 (온천·도룡동)',
+          location: '대전 유성구 온천로 59',
+          waitTimeMinutes: 0,
+          isInstantAccess: true,
+          waitingCount: 0,
+          ontongCashbackRate: 0,
+          imageUrl: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '여행의 피로를 풀어주는 41도 천연 온천수 족욕길! 365일 무료 개방',
+          signatureMenu: '천연 온천 족욕 (무료), 숲속 산책로',
+          priceLevel: '무료 개방 (0원)',
+          rating: 4.9,
+          reviewsCount: 1890,
+          menus: [
+            { name: '천연 온천수 야외 족욕', price: 0, badge: '무료', desc: '지하 200m에서 용출되는 41도 천연 라듐 온천수 족욕' },
+            { name: '사계절 이팝나무 황토 산책로', price: 0, badge: '무료', desc: '피톤치드 뿜어져 나오는 도심 속 맨발 힐링 산책길' },
+            { name: '족욕 면수건 (자판기)', price: 1000, badge: '편의', desc: '현장에서 편리하게 구매할 수 있는 1회용 면수건' },
+          ],
+        },
+        {
+          id: 'shinsegae-art-science',
+          name: '대전 신세계 Art & Science',
+          category: 'healing',
+          categoryLabel: '과학 & 문화 랜드마크',
+          district: '유성구 (온천·도룡동)',
+          location: '대전 유성구 엑스포로 1',
+          waitTimeMinutes: 10,
+          isInstantAccess: false,
+          waitingCount: 4,
+          ontongCashbackRate: 7,
+          imageUrl: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '갑천 파노라마 뷰 전망대, 디아쿠아 수족관 카페, 과학 전시',
+          signatureMenu: '38층 스타벅스 파노라마 뷰, 아쿠아리움',
+          priceLevel: '₩ 6,000 ~ 29,000',
+          rating: 4.9,
+          reviewsCount: 2950,
+          menus: [
+            { name: '38층 스타벅스 파노라마 뷰', price: 6500, badge: '명소', desc: '대전 시내와 갑천을 360도로 한눈에 조망하는 고층 카페' },
+            { name: '대전 엑스포 아쿠아리움', price: 29000, badge: '전시', desc: '국내 최초 미디어아트와 해양 생물이 융합된 복합 수족관' },
+            { name: '디아쿠아 수족관 카페 음료', price: 7500, badge: '인기', desc: '상어와 가오리를 코앞에서 바라보며 즐기는 음료' },
+            { name: '신세계 넥스페리움 과학관', price: 18000, badge: '체험', desc: 'KAIST와 공동 개발한 미래 과학 인터랙티브 전시관' },
+          ],
+        },
+
+        // --- [대덕구 / 중리동 순대거리 · 송촌동 · 신탄진] ---
+        {
+          id: 'omunchang-sundae',
+          name: '오문창순대국밥 (대덕구 중리동)',
+          category: 'restaurant',
+          categoryLabel: '24시간 대전 3대 순대국밥',
+          district: '대덕구 (신탄진·중리동)',
+          location: '대전 대덕구 한밭대로 1153',
+          waitTimeMinutes: 15,
+          isInstantAccess: false,
+          waitingCount: 8,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '가성비 끝판왕! 들깨가루와 파다대기가 듬뿍 들어간 24시간 원조 순대국밥',
+          signatureMenu: '순대국밥 (7,000원), 미니족발 (9,000원)',
+          priceLevel: '₩ 7,000 ~ 18,000',
+          rating: 4.8,
+          reviewsCount: 3410,
+          menus: [
+            { name: '원조 순대국밥', price: 7000, badge: '대표', desc: '토렴하여 나오는 밥과 쫄깃한 내장 머릿고기 푸짐한 한 그릇' },
+            { name: '모듬 순대 (소)', price: 8000, badge: '베스트', desc: '당면순대, 야채순대, 오소리감투, 간이 골고루 담긴 순대' },
+            { name: '미니 족발 구이', price: 9000, badge: '인기', desc: '쫄깃하고 뜯어먹는 재미가 있는 오문창 명물 미니족' },
+            { name: '곱창전골 (중)', price: 18000, badge: '안주', desc: '깻잎과 당면, 곱창이 얼큰하게 어우러진 냄비 전골' },
+          ],
+        },
+        {
+          id: 'gyeojoksan-sanseong',
+          name: '계족산 산성식당 (송촌동)',
+          category: 'restaurant',
+          categoryLabel: '황토길 건강 보리밥 정식',
+          district: '대덕구 (신탄진·중리동)',
+          location: '대전 대덕구 산디로 123',
+          waitTimeMinutes: 0,
+          isInstantAccess: true,
+          waitingCount: 0,
+          ontongCashbackRate: 10,
+          imageUrl: 'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=800&q=80',
+          shortDescription: '계족산 14.5km 맨발 황토길 걷고 내려와 먹는 구수한 꽁보리밥과 도토리묵',
+          signatureMenu: '산골 보리밥정식 (9,000원), 묵무침 (10,000원)',
+          priceLevel: '₩ 9,000 ~ 20,000',
+          rating: 4.7,
+          reviewsCount: 820,
+          menus: [
+            { name: '산골 보리밥 정식', price: 9000, badge: '대표', desc: '직접 담근 강된장과 7가지 신선한 나물을 비벼먹는 보리밥' },
+            { name: '도토리 묵무침', price: 10000, badge: '베스트', desc: '국산 도토리묵에 참기름과 들깨가루, 상추를 버무린 무침' },
+            { name: '해물 파전', price: 12000, badge: '인기', desc: '바삭바삭 오징어와 쪽파를 듬뿍 넣어 부쳐낸 전통 전' },
+            { name: '대전 생막걸리', price: 4000, badge: '주류', desc: '등산 후 시원하게 즐기는 대전 로컬 생막걸리' },
+          ],
+        },
+      ];
+
+      // 2. Shorts Data
+      const SHORTS = [
+        {
+          id: 'reel-1',
+          title: '성심당 120분 줄 서지 마세요! 3분 거리 현지인 빵집 털기 🥐',
+          creator: '대전토박이_수현',
+          views: '14.8만회',
+          duration: '0:15',
+          thumbnailUrl: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80',
+          locationName: '대흥동 르뺑 & 성심당 본점 인근',
+          waitTimeBadge: '대기 0분 대안 스팟',
+          tags: ['#성심당대안', '#대전빵지순례', '#온통대전10%'],
+          tips: [
+            '성심당 웨이팅 100분 넘으면 원격 대기 걸어두고 르뺑 먼저 방문하세요',
+            '온통대전 10% 캐시백 적용 매장이라 빵 4개 사도 1만원 초반대!',
+            '소금빵 나오는 시간: 매일 11:30 / 14:00',
+          ],
+        },
+        {
+          id: 'reel-2',
+          title: '100년 철도관사촌 소제동 골목! 사진 100장 건지는 3대 카페',
+          creator: '감성대전_트래블러',
+          views: '9.3만회',
+          duration: '0:18',
+          thumbnailUrl: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80',
+          locationName: '소제동 카페거리 (동구)',
+          waitTimeBadge: '평균 대기 5분',
+          tags: ['#소제동카페거리', '#대전인생샷', '#대전역도보5분'],
+          tips: [
+            '대전역 KTX 타기 전 1시간 코스로 완벽합니다',
+            '골목마다 등록문화재 철도관사라 삼각대 필수!',
+            '온통대전 앱 바코드 결제 시 10% 즉시 페이백',
+          ],
+        },
+        {
+          id: 'reel-3',
+          title: '광천식당 웨이팅 40분 떴을 때? 진로집 두부두루치기로 환승!',
+          creator: '노잼도시반박러_민규',
+          views: '21.5만회',
+          duration: '0:14',
+          thumbnailUrl: 'https://images.unsplash.com/photo-1552611052-33e04de081de?auto=format&fit=crop&w=600&q=80',
+          locationName: '선화동 맛집골목',
+          waitTimeBadge: '대기 5분 환승 성공',
+          tags: ['#두부두루치기', '#대전로컬맛집', '#선화단길'],
+          tips: [
+            '사리(칼국수 면)는 무조건 추가해서 비벼 먹어야 찐입니다',
+            '점심 피크 12시~13시 피해서 13시 30분 방문 추천',
+            '대기표 뽑고 선화단길 편집숍 구경하면 15분 순삭',
+          ],
+        },
+        {
+          id: 'reel-4',
+          title: '대전 여행 끝나고 피로 싹 풀리는 41도 무료 온천 족욕탕 ♨️',
+          creator: '힐링러버_지아',
+          views: '7.6만회',
+          duration: '0:15',
+          thumbnailUrl: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80',
+          locationName: '유성온천 족욕체험길',
+          waitTimeBadge: '365일 무료 개방 (0분)',
+          tags: ['#유성온천', '#대전무료명소', '#힐링코스'],
+          tips: [
+            '지하철 유성온천역 7번 출구에서 도보 3분 거리',
+            '개인 수건 준비해오면 편리하며 자판기에서도 구매 가능',
+            '밤 10시까지 조명 켜져서 야간 족욕 분위기 최고!',
+          ],
+        },
+      ];
+
+      let currentActiveSpot = null;
+      let currentFilterTab = 'zeroWait';
+      let activeCalcSpotId = 'sungsimdang-main';
+      let shortsLiked = false;
+      let shortsMuted = true;
+      let selectedMenuItems = new Set();
+      let isShowAllHotspots = false;
+      let activeDistrictChip = 'all';
+
+      // District Chip Filter
+      function filterByDistrictChip(district) {
+        activeDistrictChip = district;
+        document.getElementById('filterDistrict').value = district;
+
+        const chips = [
+          { id: 'chip-all', val: 'all' },
+          { id: 'chip-jung', val: '중구 (은행·대흥동)' },
+          { id: 'chip-dong', val: '동구 (소제동)' },
+          { id: 'chip-seo', val: '서구 (둔산·갈마동)' },
+          { id: 'chip-yuseong', val: '유성구 (온천·도룡동)' },
+          { id: 'chip-daedeok', val: '대덕구 (신탄진·중리동)' },
+        ];
+
+        chips.forEach((c) => {
+          const el = document.getElementById(c.id);
+          if (el) {
+            if (c.val === district) {
+              el.className = 'px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-slate-900 text-white shadow-sm flex items-center gap-1';
+            } else {
+              el.className = 'px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 flex items-center gap-1';
+            }
+          }
+        });
+
+        applyFilters();
+      }
+
+      function showAllHotspotsNow() {
+        isShowAllHotspots = true;
+        resetAndShowAll();
+        const target = document.getElementById('trend-spots');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      function toggleShowAllHotspots() {
+        isShowAllHotspots = !isShowAllHotspots;
+        applyFilters();
+        if (isShowAllHotspots) {
+          const target = document.getElementById('trend-spots');
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+
+      // Render Trend Hotspots Grid
+      function renderHotspots(list) {
+        const grid = document.getElementById('hotspotsGrid');
+        if (!grid) return;
+        const displayList = list || HOTSPOTS;
+
+        // If user is searching or filtered, show all matching. Otherwise show 8 or all 26.
+        const isFiltered = displayList !== HOTSPOTS;
+        const limit = (isShowAllHotspots || isFiltered) ? displayList.length : 8;
+        const visibleList = displayList.slice(0, limit);
+
+        // Update count badge and buttons
+        const badge = document.getElementById('hotspotsCountBadge');
+        if (badge) {
+          badge.innerText = isFiltered
+            ? `검색 결과 ${displayList.length}개`
+            : `총 ${HOTSPOTS.length}개 핫플 등록 (${visibleList.length}개 표시 중)`;
+        }
+
+        const btnToggleAll = document.getElementById('btnToggleAll');
+        const btnToggleAllText = document.getElementById('btnToggleAllText');
+        const toggleAllChevron = document.getElementById('toggleAllChevron');
+
+        if (btnToggleAllText) {
+          if (isShowAllHotspots || visibleList.length >= displayList.length) {
+            btnToggleAllText.innerText = `접기 (상위 8개만 보기)`;
+            if (toggleAllChevron) toggleAllChevron.setAttribute('data-lucide', 'chevron-up');
+          } else {
+            const remain = displayList.length - visibleList.length;
+            btnToggleAllText.innerText = `대전 전체 핫플 더보기 (+${remain}개 전체 펼치기)`;
+            if (toggleAllChevron) toggleAllChevron.setAttribute('data-lucide', 'chevron-down');
+          }
+        }
+
+        if (visibleList.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full py-16 text-center bg-white rounded-3xl border border-slate-200">
+              <i data-lucide="search-x" class="w-10 h-10 text-slate-400 mx-auto mb-3"></i>
+              <h3 class="text-base font-bold text-slate-800">조건에 맞는 대전 핫플이 없습니다</h3>
+              <p class="text-xs text-slate-500 mt-1">검색어나 필터 조건을 변경해 보세요.</p>
+              <button onclick="resetAndShowAll()" class="mt-4 px-4 py-2 bg-slate-900 text-white text-xs font-bold rounded-xl">전체 핫플 목록 보기</button>
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+
+        grid.innerHTML = visibleList.map((spot, idx) => {
+          const isHighlighted = idx === 0 && !isFiltered && !isShowAllHotspots;
+          return `
+            <div
+              onclick="openSpotModalById('${spot.id}')"
+              class="rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 relative border cursor-pointer group ${
+                isHighlighted ? 'bg-[#EEF2FF] border-indigo-200 shadow-sm' : 'bg-white border-slate-200/80 shadow-sm'
+              }"
+            >
+              <div>
+                <div class="flex items-start justify-between gap-2 mb-2">
+                  <div>
+                    <span class="text-[11px] font-bold text-slate-500 block">${spot.district} · ${spot.categoryLabel}</span>
+                    <h3 class="text-xl font-extrabold text-slate-900 mt-0.5 group-hover:text-[#FF5722] transition-colors leading-tight">${spot.name}</h3>
+                  </div>
+                  ${spot.isInstantAccess ? `
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-[#10B981] text-white flex-shrink-0 shadow-sm">
+                      <i data-lucide="check-circle" class="w-3 h-3"></i> 대기 0분
+                    </span>
+                  ` : `
+                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-[#FF5722] text-white flex-shrink-0 shadow-sm animate-pulse">
+                      <i data-lucide="clock" class="w-3 h-3"></i> 대기 ${spot.waitTimeMinutes}분
+                    </span>
+                  `}
+                </div>
+
+                ${spot.ontongCashbackRate > 0 ? `
+                  <div class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold bg-[#0066CC]/10 text-[#0066CC] border border-[#0066CC]/20 mb-3">
+                    <span>온통대전 ${spot.ontongCashbackRate}% 캐시백</span>
+                  </div>
+                ` : ''}
+
+                <div class="relative aspect-[16/10] rounded-xl overflow-hidden my-3 bg-slate-100 border border-black/5">
+                  <img src="${spot.imageUrl}" alt="${spot.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+                  ${!spot.isInstantAccess ? `
+                    <div class="absolute bottom-2 left-2 px-2 py-1 bg-black/70 backdrop-blur-md text-white text-[10px] font-bold rounded-lg flex items-center gap-1">
+                      <i data-lucide="users" class="w-3 h-3 text-amber-400"></i>
+                      대기 ${spot.waitingCount}팀 대기 중
+                    </div>
+                  ` : `
+                    <div class="absolute bottom-2 left-2 px-2 py-1 bg-emerald-700/80 backdrop-blur-md text-white text-[10px] font-bold rounded-lg flex items-center gap-1">
+                      <i data-lucide="sparkles" class="w-3 h-3 text-emerald-200"></i>
+                      즉시 테이블 착석 가능
+                    </div>
+                  `}
+                  <!-- Click to see menu badge overlay -->
+                  <div class="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-sm text-white text-[10px] font-bold flex items-center gap-1">
+                    <i data-lucide="utensils" class="w-3 h-3 text-[#FF5722]"></i>
+                    메뉴 ${spot.menus ? spot.menus.length : 0}개
+                  </div>
+                </div>
+
+                ${spot.alternativeSpot ? `
+                  <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200/80 text-amber-900 text-xs mb-3">
+                    <div class="font-bold flex items-center gap-1 text-[11px] text-amber-800">
+                      <span>👉 추천 대안: ${spot.alternativeSpot.name}</span>
+                    </div>
+                    <div class="text-[10px] text-amber-700 mt-0.5">
+                      ${spot.alternativeSpot.distance} · 대기 ${spot.alternativeSpot.waitTimeMinutes}분
+                    </div>
+                  </div>
+                ` : ''}
+
+                <!-- Quick Menu Highlights -->
+                <div class="mb-3.5 flex flex-wrap gap-1">
+                  ${spot.menus ? spot.menus.slice(0, 3).map((m) => `
+                    <span class="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-700 rounded-md font-medium border border-slate-200/60">
+                      ${m.name} <span class="font-bold text-slate-900">${m.price === 0 ? '무료' : m.price.toLocaleString() + '원'}</span>
+                    </span>
+                  `).join('') : ''}
+                </div>
+
+                <div class="text-xs text-slate-600 line-clamp-2 mb-4 leading-relaxed">
+                  ${spot.shortDescription}
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-200/60 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[10px] text-slate-400 block font-semibold">대표 가격대</span>
+                  <span class="text-xs font-bold text-slate-800">${spot.priceLevel}</span>
+                </div>
+                <button
+                  onclick="event.stopPropagation(); openSpotModalById('${spot.id}')"
+                  class="px-4 py-2 rounded-full text-xs font-extrabold transition-all duration-200 shadow-sm flex items-center gap-1.5 ${
+                    isHighlighted
+                      ? 'bg-slate-900 text-white hover:bg-slate-800'
+                      : spot.isInstantAccess
+                      ? 'bg-[#10B981] text-white hover:bg-[#059669]'
+                      : 'bg-white text-slate-800 border border-slate-300 hover:border-slate-800 hover:bg-slate-50'
+                  }"
+                >
+                  <i data-lucide="utensils" class="w-3 h-3"></i>
+                  <span>메뉴 & 대기현황</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        lucide.createIcons();
+      }
+
+      // Render Modal Menu Items
+      function renderModalMenus(spot) {
+        const container = document.getElementById('modalMenuList');
+        if (!container) return;
+
+        if (!spot.menus || spot.menus.length === 0) {
+          container.innerHTML = '<div class="text-xs text-slate-500 py-3 text-center col-span-2">등록된 메뉴 정보가 없습니다.</div>';
+          return;
+        }
+
+        const cashbackRate = spot.ontongCashbackRate > 0 ? spot.ontongCashbackRate : 10;
+
+        container.innerHTML = spot.menus.map((m, idx) => {
+          const isSelected = selectedMenuItems.has(idx);
+          const discountedPrice = Math.round(m.price * (1 - cashbackRate / 100));
+
+          return `
+            <div
+              onclick="toggleMenuItem(${idx})"
+              class="p-3 rounded-xl border transition-all cursor-pointer flex items-start justify-between gap-3 ${
+                isSelected
+                  ? 'bg-orange-50/80 border-[#FF5722] shadow-sm'
+                  : 'bg-white border-slate-200/80 hover:border-slate-300 hover:bg-slate-50/50'
+              }"
+            >
+              <div class="flex items-start gap-2.5">
+                <input
+                  type="checkbox"
+                  ${isSelected ? 'checked' : ''}
+                  class="mt-1 w-3.5 h-3.5 rounded text-[#FF5722] focus:ring-[#FF5722] accent-[#FF5722] pointer-events-none"
+                />
+                <div>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="font-extrabold text-xs text-slate-900">${m.name}</span>
+                    ${m.badge ? `
+                      <span class="px-1.5 py-0.2 rounded text-[10px] font-bold ${
+                        m.badge === '대표' || m.badge === '시그니처'
+                          ? 'bg-[#FF5722]/10 text-[#FF5722]'
+                          : m.badge === '베스트' || m.badge === '인기'
+                          ? 'bg-amber-100 text-amber-800'
+                          : 'bg-slate-100 text-slate-600'
+                      }">
+                        ${m.badge}
+                      </span>
+                    ` : ''}
+                  </div>
+                  <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">${m.desc || ''}</p>
+                </div>
+              </div>
+
+              <div class="text-right flex-shrink-0">
+                <div class="font-black text-xs text-slate-900">
+                  ${m.price === 0 ? '무료 (0원)' : m.price.toLocaleString() + '원'}
+                </div>
+                ${m.price > 0 && cashbackRate > 0 ? `
+                  <div class="text-[10px] text-[#0066CC] font-bold">
+                    온통 ${discountedPrice.toLocaleString()}원
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      function toggleMenuItem(idx) {
+        if (selectedMenuItems.has(idx)) {
+          selectedMenuItems.delete(idx);
+        } else {
+          selectedMenuItems.add(idx);
+        }
+        if (currentActiveSpot) {
+          renderModalMenus(currentActiveSpot);
+          updateMenuEstimatedTotal(currentActiveSpot);
+        }
+      }
+
+      function updateMenuEstimatedTotal(spot) {
+        const countEl = document.getElementById('modalSelectedMenuCount');
+        const totalEl = document.getElementById('modalEstimatedTotal');
+        const cashbackEl = document.getElementById('modalEstimatedCashback');
+        if (!countEl || !totalEl || !cashbackEl) return;
+
+        let total = 0;
+        selectedMenuItems.forEach((idx) => {
+          if (spot.menus && spot.menus[idx]) {
+            total += spot.menus[idx].price;
+          }
+        });
+
+        const cashbackRate = spot.ontongCashbackRate > 0 ? spot.ontongCashbackRate : 10;
+        const estimatedCashback = Math.round(total * (cashbackRate / 100));
+
+        if (selectedMenuItems.size === 0) {
+          countEl.innerText = '메뉴를 선택해 예상 금액을 계산해보세요';
+          totalEl.innerText = '0원';
+          cashbackEl.innerText = `온통대전 ${cashbackRate}% 캐시백 적용 가능`;
+        } else {
+          countEl.innerText = `선택한 메뉴: ${selectedMenuItems.size}개`;
+          totalEl.innerText = `${total.toLocaleString()}원`;
+          cashbackEl.innerText = `온통대전 결제 시: ${(total - estimatedCashback).toLocaleString()}원 (${estimatedCashback.toLocaleString()}원 캐시백)`;
+        }
+      }
+
+      // Spot Detail Modal
+      function openSpotModalById(spotId) {
+        const spot = HOTSPOTS.find((s) => s.id === spotId);
+        if (!spot) return;
+        currentActiveSpot = spot;
+
+        document.getElementById('modalSpotImg').src = spot.imageUrl;
+        document.getElementById('modalSpotName').innerText = spot.name;
+        document.getElementById('modalSpotCategory').innerText = spot.categoryLabel;
+        document.getElementById('modalSpotDistrict').innerText = spot.district;
+        document.getElementById('modalSpotLoc').innerHTML = `<i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#FF5722] flex-shrink-0 mt-0.5"></i> ${spot.location}`;
+        document.getElementById('modalSpotMenu').innerText = spot.signatureMenu;
+        document.getElementById('modalSpotRating').innerText = `평점 ★ ${spot.rating} (리뷰 ${spot.reviewsCount}개)`;
+
+        // Reset and render menus
+        selectedMenuItems.clear();
+        renderModalMenus(spot);
+        updateMenuEstimatedTotal(spot);
+
+        // Wait Status Banner
+        const banner = document.getElementById('modalStatusBanner');
+        const iconBg = document.getElementById('modalStatusIconBg');
+        const icon = document.getElementById('modalStatusIcon');
+        const text = document.getElementById('modalStatusText');
+        const ticketBtn = document.getElementById('modalTicketBtn');
+        const ticketBox = document.getElementById('modalTicketBox');
+
+        ticketBox.classList.add('hidden');
+
+        if (spot.isInstantAccess) {
+          banner.className = 'p-4 rounded-2xl border flex items-center justify-between gap-4 bg-emerald-50 border-emerald-200 text-emerald-950';
+          iconBg.className = 'w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white font-extrabold bg-[#10B981]';
+          icon.setAttribute('data-lucide', 'check-circle');
+          text.innerText = '즉시 입장 가능 (대기 0분)';
+          ticketBtn.classList.add('hidden');
+        } else {
+          banner.className = 'p-4 rounded-2xl border flex items-center justify-between gap-4 bg-rose-50 border-rose-200 text-rose-950';
+          iconBg.className = 'w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 text-white font-extrabold bg-[#FF5722]';
+          icon.setAttribute('data-lucide', 'clock');
+          text.innerText = `현재 예상 대기: ${spot.waitTimeMinutes}분 (대기 ${spot.waitingCount}팀)`;
+          ticketBtn.classList.remove('hidden');
+        }
+
+        // Alternative Box
+        const altBox = document.getElementById('modalAltBox');
+        if (spot.alternativeSpot) {
+          altBox.classList.remove('hidden');
+          document.getElementById('modalAltName').innerText = spot.alternativeSpot.name;
+          document.getElementById('modalAltDesc').innerText = `${spot.alternativeSpot.description} (${spot.alternativeSpot.distance})`;
+          document.getElementById('modalAltWaitBadge').innerText = `대기 ${spot.alternativeSpot.waitTimeMinutes}분`;
+        } else {
+          altBox.classList.add('hidden');
+        }
+
+        document.getElementById('spotModal').classList.remove('hidden');
+        lucide.createIcons();
+      }
+
+      function closeSpotModal() {
+        document.getElementById('spotModal').classList.add('hidden');
+      }
+
+      function issueRemoteTicket() {
+        const ticketNum = Math.floor(Math.random() * 50) + 120;
+        document.getElementById('modalTicketNum').innerText = `#${ticketNum}`;
+        if (currentActiveSpot) {
+          document.getElementById('modalTicketInfo').innerText = `내 앞 대기 ${currentActiveSpot.waitingCount}팀 · 예상 호출 시간 약 ${currentActiveSpot.waitTimeMinutes}분 후`;
+        }
+        document.getElementById('modalTicketBtn').classList.add('hidden');
+        document.getElementById('modalTicketBox').classList.remove('hidden');
+        lucide.createIcons();
+      }
+
+      function switchToAlternative() {
+        if (currentActiveSpot && currentActiveSpot.alternativeSpot) {
+          closeSpotModal();
+          const altName = currentActiveSpot.alternativeSpot.name;
+          const matched = HOTSPOTS.find((s) => s.name.includes(altName) || altName.includes(s.name));
+          if (matched) {
+            openSpotModalById(matched.id);
+          } else {
+            document.getElementById('navSearchInput').value = altName;
+            applyFilters();
+            const target = document.getElementById('trend-spots');
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }
+
+      // VIP Pass Modal
+      function openPassModal() {
+        document.getElementById('passModal').classList.remove('hidden');
+        lucide.createIcons();
+      }
+
+      function closePassModal() {
+        document.getElementById('passModal').classList.add('hidden');
+      }
+
+      function copyPassCode() {
+        navigator.clipboard.writeText('DJ-NOWAIT-2026-VIP');
+        const txt = document.getElementById('copyBtnText');
+        txt.innerText = '복사 완료!';
+        setTimeout(() => { txt.innerText = '코드 복사'; }, 2000);
+      }
+
+      // Shorts Modal
+      function openShortsModalById(reelId) {
+        const reel = SHORTS.find((r) => r.id === reelId);
+        if (!reel) return;
+
+        document.getElementById('shortsVideoThumb').src = reel.thumbnailUrl;
+        document.getElementById('shortsCreator').innerText = reel.creator;
+        document.getElementById('shortsTitle').innerText = reel.title;
+        document.getElementById('shortsLocation').innerText = reel.locationName;
+        document.getElementById('shortsWaitBadge').innerText = reel.waitTimeBadge;
+
+        const tipsList = document.getElementById('shortsTipsList');
+        tipsList.innerHTML = reel.tips.map((t) => `
+          <li class="flex items-start gap-1.5">
+            <span class="text-[#FF5722] font-black">•</span>
+            <span>${t}</span>
+          </li>
+        `).join('');
+
+        shortsLiked = false;
+        document.getElementById('shortsLikesCount').innerText = '1,240';
+        document.getElementById('shortsLikeBtn').className = 'w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md bg-black/50 text-white hover:bg-black/70';
+
+        document.getElementById('shortsModal').classList.remove('hidden');
+        lucide.createIcons();
+      }
+
+      function closeShortsModal() {
+        document.getElementById('shortsModal').classList.add('hidden');
+      }
+
+      function toggleShortsLike() {
+        shortsLiked = !shortsLiked;
+        const count = document.getElementById('shortsLikesCount');
+        const btn = document.getElementById('shortsLikeBtn');
+        if (shortsLiked) {
+          count.innerText = '1,241';
+          btn.className = 'w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md bg-rose-600 text-white';
+        } else {
+          count.innerText = '1,240';
+          btn.className = 'w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-md bg-black/50 text-white hover:bg-black/70';
+        }
+      }
+
+      function toggleShortsMute() {
+        shortsMuted = !shortsMuted;
+        const icon = document.getElementById('shortsMuteIcon');
+        icon.setAttribute('data-lucide', shortsMuted ? 'volume-x' : 'volume-2');
+        lucide.createIcons();
+      }
+
+      // Newsletter form
+      function handleNewsletter(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletterEmail').value;
+        if (email) {
+          const succ = document.getElementById('newsletterSuccess');
+          succ.classList.remove('hidden');
+          setTimeout(() => {
+            document.getElementById('newsletterEmail').value = '';
+            succ.classList.add('hidden');
+          }, 3500);
+        }
+      }
+
+      // Initial Bootstrap
+      document.addEventListener('DOMContentLoaded', () => {
+        renderHotspots(HOTSPOTS);
+        renderShorts();
+        lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>
